@@ -5,7 +5,7 @@ message: "HyperFrames를 쓰면 말 한 줄로, 원하는 그대로 나오는 �
 arc: concept-explainer with process
 audience: "개발에 관심 있는 사람, 웹 입문부터 주니어, AI로 만드는 사람"
 mode: autonomous
-music: none
+music: calm low-volume lofi study bed
 narration: no
 vo_mode: verbatim
 captions: skipped (no narration; the card copy is the subtitle)

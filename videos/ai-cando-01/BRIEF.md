@@ -20,7 +20,7 @@ angle: concept
 
 - 없음. 이미지·사진·외부 로고 금지. 글자는 HTML/CSS/SVG만.
 - 폰트는 `assets/fonts/` (Jua, Gaegu, Pretendard, JetBrains Mono).
-- 효과음만. 배경음악 없음.
+- 배경음악은 잔잔한 로파이 스터디 무드, 낮은 볼륨. 효과음은 장면 전환과 포인트에만 사용.
 
 ## Customizations
 

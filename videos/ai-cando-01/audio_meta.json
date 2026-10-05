@@ -1,5 +1,11 @@
 {
-  "bgm": null,
+  "bgm": {
+    "path": "assets/bgm/study-note-lofi-bed.mp3",
+    "volume": 0.18,
+    "query": "calm instrumental lofi study music, low volume, no vocals",
+    "duration_s": 44.04,
+    "source": "looped from videos/ai-can-this-01/.media/audio/bgm/bgm_002.wav with 0.8s fade-in and 1.8s fade-out"
+  },
   "bgm_pending": false,
   "voices": [],
   "sfx": [
