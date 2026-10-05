@@ -1,0 +1,64 @@
+{
+  "category": "kinetic-type",
+  "duration_s": 8,
+  "fps": 30,
+  "canvas": { "w": 1920, "h": 1080, "aspect": "16:9" },
+  "style": "Dark macOS terminal, a one-second shatter, then bold white type on pure black. No narration.",
+  "palette": ["#000000", "#1c1c1e", "#3a3a3c", "#f5f5f7", "#ffffff"],
+  "font": "Archivo Black",
+  "beats": [0, 4, 5, 8],
+  "export": "mp4",
+  "asset_needs": [],
+  "block": "code-typing",
+  "customize": {
+    "code-typing": {
+      "chrome": "dark macOS terminal window, centered",
+      "text": "npx skills add heygen-com/hyperframes",
+      "motion": "character by character, then hold on a blinking caret before the cut"
+    },
+    "vfx-shatter": {
+      "source": "the same terminal window",
+      "window": "4s to 5s",
+      "motion": "shatter into fragments"
+    },
+    "caption-kinetic-slam": {
+      "lines": ["YOU JUST MADE THIS", "WITH HYPERFRAMES."],
+      "motion": "word by word slam, words remain, white on black",
+      "window": "5s to 8s"
+    }
+  },
+  "content": {
+    "scenes": [
+      {
+        "id": "type",
+        "start": 0,
+        "end": 4,
+        "text": "npx skills add heygen-com/hyperframes",
+        "emphasis_words": ["hyperframes"],
+        "emotion": "focused",
+        "motion": "character-by-character type, then a blinking caret",
+        "beats": [0, 3.4]
+      },
+      {
+        "id": "shatter",
+        "start": 4,
+        "end": 5,
+        "text": "",
+        "emphasis_words": [],
+        "emotion": "impact",
+        "motion": "terminal shatters into fragments",
+        "beats": [4]
+      },
+      {
+        "id": "end-card",
+        "start": 5,
+        "end": 8,
+        "text": "YOU JUST MADE THIS / WITH HYPERFRAMES.",
+        "emphasis_words": ["HYPERFRAMES."],
+        "emotion": "punch",
+        "motion": "word-by-word slam, then hold",
+        "beats": [5, 6.4]
+      }
+    ]
+  }
+}

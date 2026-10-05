@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("capture/assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-700.ttf") format("truetype"); font-weight: 700; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fcf6ec;
+          color: #3d3553;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          perspective: 1600px;
+        }
+        .paper {
+          position: absolute;
+          inset: 0;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .page {
+          position: absolute;
+          inset: 0;
+          background: #f3e6d0;
+          transform-origin: left center;
+          z-index: 5;
+        }
+        .handle {
+          position: absolute;
+          left: 72px;
+          bottom: 286px;
+          z-index: 2;
+          font-size: 32px;
+          font-weight: 600;
+        }
+        .series {
+          position: absolute;
+          right: 64px;
+          top: 278px;
+          z-index: 2;
+          font-family: "Gaegu", cursive;
+          font-size: 40px;
+          background: #f9b4c4;
+          border-radius: 999px;
+          padding: 4px 22px 8px;
+        }
+        .stage {
+          position: absolute;
+          left: 56px;
+          right: 56px;
+          top: 390px;
+          z-index: 1;
+        }
+        h1 {
+          margin: 0 0 28px;
+          font-family: "Jua", sans-serif;
+          font-size: 64px;
+          font-weight: 400;
+          line-height: 1.2;
+        }
+        table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0 12px;
+          font-size: 24px;
+          line-height: 1.35;
+        }
+        th {
+          font-family: "Jua", sans-serif;
+          font-size: 32px;
+          font-weight: 400;
+          text-align: center;
+          padding: 8px;
+        }
+        th.item,
+        td.item {
+          width: 28%;
+          text-align: left;
+          font-weight: 600;
+        }
+        td {
+          background: #fffdf8;
+          padding: 16px 14px;
+          vertical-align: middle;
+          text-align: center;
+        }
+        td.no {
+          background: #fde7ee;
+        }
+        td.yes {
+          background: #e7f6ea;
+        }
+        td.item {
+          background: transparent;
+          text-align: left;
+          padding-left: 4px;
+        }
+        .mark {
+          width: 54px;
+          height: 54px;
+          display: block;
+          margin: 0 auto 6px;
+        }
+        .mark path {
+          fill: none;
+          stroke-width: 7;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          filter: url(#crayon-compare);
+        }
+        .no path {
+          stroke: #e07a93;
+        }
+        .yes path {
+          stroke: #3d9a62;
+        }
+      </style>
+      <div id="root" data-composition-id="compare" data-width="1080" data-height="1920">
+        <svg width="0" height="0" aria-hidden="true">
+          <filter id="crayon-compare">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" />
+          </filter>
+        </svg>
+        <div id="compare-paper" class="paper clip" data-start="0" data-duration="5" data-track-index="0"></div>
+        <div class="handle">@crayon.sure</div>
+        <div class="series">AI, 이것도 돼?</div>
+        <div class="stage">
+          <h1 id="compare-title">영상 만들 때, 뭐가 달라요?</h1>
+          <table>
+            <thead>
+              <tr>
+                <th class="item"></th>
+                <th>생성형 AI 영상</th>
+                <th>HyperFrames</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row" id="compare-row-0">
+                <td class="item">화면 속 글자</td>
+                <td class="no">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="x" d="M16 16 L48 48 M48 16 L16 48" /></svg>
+                  뭉개질 때가 있어요
+                </td>
+                <td class="yes">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="v" d="M14 34 L28 48 L52 18" /></svg>
+                  쓴 그대로 나와요
+                </td>
+              </tr>
+              <tr class="row" id="compare-row-1">
+                <td class="item">다시 만들면</td>
+                <td class="no">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="x" d="M16 16 L48 48 M48 16 L16 48" /></svg>
+                  매번 달라져요
+                </td>
+                <td class="yes">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="v" d="M14 34 L28 48 L52 18" /></svg>
+                  몇 번을 뽑아도 같아요
+                </td>
+              </tr>
+              <tr class="row" id="compare-row-2">
+                <td class="item">한 군데만 고치기</td>
+                <td class="no">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="x" d="M16 16 L48 48 M48 16 L16 48" /></svg>
+                  처음부터 다시 뽑아야 해요
+                </td>
+                <td class="yes">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="v" d="M14 34 L28 48 L52 18" /></svg>
+                  그 부분 코드만 고쳐요
+                </td>
+              </tr>
+              <tr class="row" id="compare-row-3">
+                <td class="item">만드는 방법</td>
+                <td class="no">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="x" d="M16 16 L48 48 M48 16 L16 48" /></svg>
+                  장면을 말로 설명해요
+                </td>
+                <td class="yes">
+                  <svg class="mark" viewBox="0 0 64 64"><path class="v" d="M14 34 L28 48 L52 18" /></svg>
+                  HTML로 화면을 짜요
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="page" id="compare-page"></div>
+      </div>
+      <script>
+        document.fonts.ready.then(() => {
+          document.querySelectorAll(".mark path").forEach((path) => {
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = String(length);
+            path.style.strokeDashoffset = String(length);
+          });
+          const speed = 1.4;
+          const t = (seconds) => seconds / speed;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#compare-page", { rotateY: 0 }, { rotateY: -105, duration: t(0.28), ease: "power2.in" }, 0);
+          tl.from("#compare-title", { opacity: 0, y: 20, duration: t(0.35), ease: "power2.out" }, t(0.32));
+          [0, 1, 2, 3].forEach((index) => {
+            const at = t(0.85 + index * 1.35);
+            tl.from("#compare-row-" + index, { opacity: 0, y: 24, duration: t(0.35), ease: "power2.out" }, at);
+            tl.to("#compare-row-" + index + " .mark path", { strokeDashoffset: 0, duration: t(0.32), stagger: t(0.08), ease: "power1.out" }, at + t(0.12));
+          });
+          window.__timelines["compare"] = tl;
+        });
+      </script>
+    </template>
+  </body>
+</html>

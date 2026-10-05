@@ -1,0 +1,271 @@
+<!DOCTYPE html><!-- hyperframes-registry-item: code-typing -->
+<!-- Customized: dark macOS terminal, one shell command, then a blinking caret. -->
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Code Typing</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000000;
+      }
+      #root {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000000;
+        font-family: "JetBrains Mono", monospace;
+        color: #f5f5f7;
+      }
+      .editor {
+        width: 1180px;
+        height: 300px;
+        background: #1c1c1e;
+        border: 1px solid #3a3a3c;
+        border-radius: 14px;
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .titlebar {
+        height: 52px;
+        flex: 0 0 52px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 18px;
+        background: #2c2c2e;
+      }
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+      .dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+      }
+      .dot.r {
+        background: #ff5f57;
+      }
+      .dot.y {
+        background: #febc2e;
+      }
+      .dot.g {
+        background: #28c840;
+      }
+      .filename {
+        font-size: 20px;
+        color: #f2f2f7;
+        letter-spacing: 0.2px;
+      }
+      .code-surface {
+        position: relative;
+        flex: 1 1 auto;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+      }
+      .code {
+        position: relative;
+        width: 100%;
+        padding: 0 40px;
+        font-size: 34px;
+        line-height: 46px;
+        font-variant-ligatures: none;
+        white-space: pre;
+      }
+      .line {
+        display: block;
+        min-height: 46px;
+        white-space: pre;
+        position: relative;
+      }
+      .tok {
+        display: inline-block;
+        white-space: pre;
+      }
+      .caret {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 36px;
+        margin-top: 5px;
+        background: #f5f5f7;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-6jcq" id="root" data-composition-id="code-typing" data-start="0" data-duration="4" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-sxfi" class="editor" id="editor">
+        <div data-hf-id="hf-t179" class="titlebar">
+          <div data-hf-id="hf-nph1" class="dots" data-layout-ignore="">
+            <span data-hf-id="hf-620k" class="dot r"></span><span data-hf-id="hf-65hz" class="dot y"></span><span data-hf-id="hf-4ih5" class="dot g"></span>
+          </div>
+          <span data-hf-id="hf-puhb" class="filename">Terminal — zsh</span>
+        </div>
+        <div data-hf-id="hf-cuy0" class="code-surface" id="surface"></div>
+      </div>
+    </div>
+    <script>
+      window.__TOKENS = {
+        feature: {
+          states: [
+            {
+              tokens: [
+                {
+                  content: "npx skills add heygen-com/hyperframes",
+                  color: "#f5f5f7",
+                  fontStyle: 0,
+                },
+              ],
+            },
+          ],
+        },
+      };
+      window.__BLOCK = { id: "code-typing", effect: "typing", seq: "feature", duration: 4 };
+    </script>
+    <script>
+      // Typing engine from the code-typing registry block.
+      // It reveals one character at a time on a paused GSAP timeline so the
+      // renderer can seek to any frame and see the same text.
+      (function () {
+        "use strict";
+        var T = window.__TOKENS || {};
+        var TYPE_START = 0.32;
+        var SECONDS_PER_CHAR = 0.08;
+
+        function makeScene(surface) {
+          var scene = document.createElement("div");
+          scene.className = "scene";
+          var code = document.createElement("div");
+          code.className = "code";
+          scene.appendChild(code);
+          surface.appendChild(scene);
+          return { scene: scene, code: code };
+        }
+
+        function typing(tl, surface, state) {
+          var parts = makeScene(surface);
+          var code = parts.code;
+          var line = document.createElement("div");
+          line.className = "line";
+          code.appendChild(line);
+
+          var prompt = document.createElement("span");
+          prompt.className = "tok";
+          prompt.textContent = "$ ";
+          prompt.style.color = "#32d74b";
+          line.appendChild(prompt);
+
+          var chars = [];
+          for (var i = 0; i < state.tokens.length; i++) {
+            var token = state.tokens[i];
+            for (var c = 0; c < token.content.length; c++) {
+              var span = document.createElement("span");
+              span.className = "tok";
+              span.textContent = token.content[c];
+              span.style.color = token.color;
+              line.appendChild(span);
+              chars.push(span);
+            }
+          }
+
+          var caret = document.createElement("div");
+          caret.className = "caret";
+          caret.id = "caret";
+          code.appendChild(caret);
+
+          var base = code.getBoundingClientRect();
+          var promptRect = prompt.getBoundingClientRect();
+          tl.set(
+            caret,
+            {
+              x: promptRect.right - base.left + 6,
+              y: promptRect.top - base.top,
+              opacity: 1,
+            },
+            0,
+          );
+
+          chars.forEach(function (el, index) {
+            var at = TYPE_START + index * SECONDS_PER_CHAR;
+            tl.set(el, { opacity: 0 }, 0);
+            tl.to(el, { opacity: 1, duration: 0.06, ease: "power1.out" }, at);
+            var rect = el.getBoundingClientRect();
+            tl.to(
+              caret,
+              {
+                x: rect.right - base.left + 6,
+                y: rect.top - base.top,
+                duration: SECONDS_PER_CHAR,
+                ease: "none",
+              },
+              at,
+            );
+          });
+
+          var typedAt = TYPE_START + chars.length * SECONDS_PER_CHAR;
+          tl.to(
+            caret,
+            {
+              opacity: 0,
+              duration: 0.08,
+              ease: "none",
+              yoyo: true,
+              repeat: 7,
+              repeatDelay: 0.16,
+            },
+            typedAt,
+          );
+        }
+
+        function go() {
+          var spec = window.__BLOCK;
+          var surface = document.getElementById("surface");
+          var root = document.getElementById("root");
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+          document.fonts.ready.then(function () {
+            tl.fromTo(
+              "#editor",
+              { opacity: 0, scale: 0.98 },
+              { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" },
+              0,
+            );
+            typing(tl, surface, T[spec.seq].states[0]);
+            var dur = parseFloat(root.dataset.duration) || tl.duration();
+            tl.to({}, { duration: dur }, 0);
+            window.__timelines["code-typing"] = tl;
+            if (typeof window.__hfForceTimelineRebind === "function") {
+              window.__hfForceTimelineRebind();
+            }
+          });
+        }
+
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", go);
+        else go();
+      })();
+    </script>
+  </body>
+</html>

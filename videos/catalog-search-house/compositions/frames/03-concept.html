@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        @font-face { font-family: "IBM Plex Mono"; src: url("assets/fonts/plex-400.ttf") format("truetype"); font-weight: 500; }
+        /* Root is styled by #root only. Groups fill the frame; the timeline gates them. */
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #111111;
+          color: #f0ece5;
+          font-family: "Jua", "IBM Plex Sans KR", sans-serif;
+        }
+
+        #g1,
+        #g2 {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        /* Bold register: fire-orange field, ink type. Dark register: ink field, cream type. */
+        #g1 {
+          background: #e85d26;
+          color: #111111;
+        }
+        #g2 {
+          background: #111111;
+          color: #f0ece5;
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .kicker {
+          position: absolute;
+          top: 72px;
+          left: 72px;
+          z-index: 2;
+          font-family: "IBM Plex Mono", ui-monospace, monospace;
+          font-size: 20px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          line-height: 1;
+        }
+        #g1 .kicker {
+          color: #111111;
+        }
+        #g2 .kicker {
+          color: #888880;
+        }
+
+        /* One poster at a time, left-aligned, inside the 72px safe area.
+           Hangul fills the em box, so line-height stays above 1 (Latin 0.88 would collide). */
+        .poster,
+        .climax {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 72px;
+          bottom: 72px;
+        }
+        .poster {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          opacity: 0;
+        }
+        .line {
+          display: block;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          line-height: 1.12;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        .line + .line {
+          margin-top: 12px;
+        }
+
+        #g1_line_a {
+          font-size: 184px;
+        }
+        #g1_line_b1,
+        #g1_line_b2 {
+          font-size: 148px;
+        }
+        #g2_line_a {
+          font-size: 168px;
+        }
+        #g2_line_b1 {
+          font-size: 88px;
+          color: #888880;
+        }
+        #g2_line_b2 {
+          font-size: 120px;
+          color: #e85d26;
+        }
+
+        /* Climax slides in from the right and holds, with the ringing icon beside the word. */
+        .climax {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          gap: 28px;
+          opacity: 0;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          line-height: 1;
+          white-space: nowrap;
+        }
+        .cword {
+          display: block;
+          flex-shrink: 0;
+          line-height: 1;
+        }
+        #g1_climax {
+          font-size: 176px;
+          color: #111111;
+        }
+        #g2_climax {
+          font-size: 210px;
+          color: #f0ece5;
+        }
+
+        .icon {
+          position: relative;
+          display: block;
+          flex-shrink: 0;
+          opacity: 0;
+          overflow: visible;
+        }
+        #g1_icon {
+          width: 150px;
+          height: 150px;
+          color: #111111;
+        }
+        #g2_icon {
+          width: 210px;
+          height: 210px;
+          color: #e85d26;
+        }
+        .glyph {
+          display: block;
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-origin: 50% 50%;
+          opacity: 0;
+        }
+        .glyph svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+        .ring {
+          display: block;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          border-radius: 50%;
+          border: 4px solid #111111;
+          box-sizing: border-box;
+          opacity: 0;
+        }
+        #g1_ring1,
+        #g1_ring2 {
+          width: 196px;
+          height: 196px;
+        }
+        #g1_ring1 {
+          border-color: #111111;
+        }
+        #g1_ring2 {
+          border-color: #1a1a18;
+        }
+        #g2_ring1,
+        #g2_ring2 {
+          width: 280px;
+          height: 280px;
+        }
+        #g2_ring1 {
+          border-color: #e85d26;
+        }
+        #g2_ring2 {
+          border-color: #282826;
+        }
+      </style>
+
+      <div data-hf-id="hf-2ybr" id="root" data-composition-id="03-concept" data-width="1080" data-height="1920" data-duration="9.474">
+        <!-- g1 · bold · sparkle · 검색은 화면에서 그대로 보인다 · local 0–3.785 -->
+        <div data-hf-id="hf-h7r5" id="g1">
+          <div data-hf-id="hf-wgta" class="kicker">03</div>
+
+          <div data-hf-id="hf-gmtr" id="g1_phrase_a" class="poster">
+            <div data-hf-id="hf-9wp6" id="g1_line_a" class="line">검색은</div>
+          </div>
+
+          <div data-hf-id="hf-7yxw" id="g1_phrase_b" class="poster">
+            <div data-hf-id="hf-jpjv" id="g1_line_b1" class="line">화면에서</div>
+            <div data-hf-id="hf-q0k8" id="g1_line_b2" class="line">그대로</div>
+          </div>
+
+          <div data-hf-id="hf-tg99" id="g1_climax" class="climax">
+            <div data-hf-id="hf-w3qd" id="g1_cword" class="cword">보인다</div>
+            <div data-hf-id="hf-sojr" id="g1_icon" class="icon">
+              <div data-hf-id="hf-05rm" id="g1_ring1" class="ring"></div>
+              <div data-hf-id="hf-w7nl" id="g1_ring2" class="ring"></div>
+              <div data-hf-id="hf-ycjv" id="g1_glyph" class="glyph">
+                <svg data-hf-id="hf-78t6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path data-hf-id="hf-kcxc" d="M12 1.8l2.1 6.9 6.9 2.1-6.9 2.1L12 19.8l-2.1-6.9L3 10.8l6.9-2.1z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- g2 · dark · bolt · 효과음은 같은 카탈로그에서 온다 · local 3.785–9.474 -->
+        <div data-hf-id="hf-l5v6" id="g2">
+          <div data-hf-id="hf-651e" class="kicker">03</div>
+
+          <div data-hf-id="hf-mlae" id="g2_phrase_a" class="poster">
+            <div data-hf-id="hf-djqk" id="g2_line_a" class="line">효과음은</div>
+          </div>
+
+          <div data-hf-id="hf-in6d" id="g2_phrase_b" class="poster">
+            <div data-hf-id="hf-qwg5" id="g2_line_b1" class="line">같은</div>
+            <div data-hf-id="hf-qcvv" id="g2_line_b2" class="line">카탈로그에서</div>
+          </div>
+
+          <div data-hf-id="hf-evag" id="g2_climax" class="climax">
+            <div data-hf-id="hf-gi9w" id="g2_cword" class="cword">온다</div>
+            <div data-hf-id="hf-cbj2" id="g2_icon" class="icon">
+              <div data-hf-id="hf-hhfd" id="g2_ring1" class="ring"></div>
+              <div data-hf-id="hf-lfje" id="g2_ring2" class="ring"></div>
+              <div data-hf-id="hf-jsro" id="g2_glyph" class="glyph">
+                <svg data-hf-id="hf-n1j2" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path data-hf-id="hf-vw0u" d="M13.2 1.8L4.4 13.6h5.6l-1.2 8.6 9.2-12.4h-5.8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // Frame-local seconds. Track time minus the frame start (20.108).
+          // g1 is the orange poster. g2 is the dark poster. The cut between them is instant.
+          var G1_A = 0;
+          var G1_B = 1.905;
+          var G1_END = 3.785;
+          var G2_A = 3.785;
+          var G2_B = 5.689;
+          var G2_CLIMAX = 7.57;
+          var WORD = 0.18;
+          var CUT = 0.1;
+          var SLIDE = 0.42;
+
+          var tl = gsap.timeline({ paused: true });
+
+          // 0ms group cut. autoAlpha only on the groups, never on #root.
+          tl.set("#g1", { autoAlpha: 1 }, 0);
+          tl.set("#g2", { autoAlpha: 0 }, 0);
+          tl.set("#g1", { autoAlpha: 0 }, G1_END);
+          tl.set("#g2", { autoAlpha: 1 }, G2_A);
+
+          function fadeIn(target, at, duration) {
+            tl.fromTo(
+              target,
+              { opacity: 0 },
+              {
+                opacity: 1,
+                duration: duration,
+                ease: "power2.out",
+                immediateRender: false,
+              },
+              at,
+            );
+          }
+
+          function fadeOut(target, at) {
+            tl.fromTo(
+              target,
+              { opacity: 1 },
+              {
+                opacity: 0,
+                duration: CUT,
+                ease: "power2.in",
+                immediateRender: false,
+              },
+              at,
+            );
+          }
+
+          // Ring is centered with xPercent/yPercent so scale stays on the icon.
+          function ringBurst(target, at, duration) {
+            tl.fromTo(
+              target,
+              { xPercent: -50, yPercent: -50, scale: 0.4, opacity: 0.55 },
+              {
+                xPercent: -50,
+                yPercent: -50,
+                scale: 1.5,
+                opacity: 0,
+                duration: duration,
+                ease: "power2.out",
+                immediateRender: false,
+              },
+              at,
+            );
+          }
+
+          // —— g1: 검색은 / 화면에서 그대로 / 보인다 ——
+          // The group ends on the downbeat, so "보인다" lands before that cut
+          // and is the poster the cut leaves. Otherwise the word would start
+          // at the same instant the group hides.
+          fadeIn("#g1_phrase_a", G1_A, 0.01);
+          fadeIn("#g1_line_a", G1_A, WORD);
+          fadeOut("#g1_phrase_a", G1_B - CUT);
+
+          fadeIn("#g1_phrase_b", G1_B, 0.01);
+          fadeIn("#g1_line_b1", G1_B, WORD);
+          fadeIn("#g1_line_b2", G1_B + WORD, WORD);
+          fadeOut("#g1_phrase_b", 2.9);
+
+          tl.fromTo(
+            "#g1_climax",
+            { x: 1080, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: SLIDE,
+              ease: "power3.out",
+              immediateRender: false,
+            },
+            2.96,
+          );
+          fadeIn("#g1_icon", 3.12, 0.2);
+          tl.fromTo(
+            "#g1_glyph",
+            { scale: 0.4, rotation: -8, opacity: 0 },
+            {
+              scale: 1,
+              rotation: 0,
+              opacity: 1,
+              duration: 0.28,
+              ease: "back.out(2.4)",
+              immediateRender: false,
+            },
+            3.14,
+          );
+          tl.fromTo(
+            "#g1_glyph",
+            { rotation: 0 },
+            { rotation: 12, duration: 0.08, ease: "power2.out", immediateRender: false },
+            3.44,
+          );
+          tl.fromTo(
+            "#g1_glyph",
+            { rotation: 12 },
+            { rotation: 0, duration: 0.22, ease: "power2.out", immediateRender: false },
+            3.52,
+          );
+          ringBurst("#g1_ring1", 3.22, 0.4);
+          ringBurst("#g1_ring2", 3.36, 0.38);
+
+          // —— g2: 효과음은 / 같은 카탈로그에서 / 온다 ——
+          // Climax hits at 7.570 and holds through the end of the frame.
+          // The bolt rings during that hold, not on the last sample.
+          fadeIn("#g2_phrase_a", G2_A, 0.01);
+          fadeIn("#g2_line_a", G2_A, WORD);
+          fadeOut("#g2_phrase_a", G2_B - CUT);
+
+          fadeIn("#g2_phrase_b", G2_B, 0.01);
+          fadeIn("#g2_line_b1", G2_B, WORD);
+          fadeIn("#g2_line_b2", G2_B + WORD, WORD);
+          fadeOut("#g2_phrase_b", G2_CLIMAX - CUT);
+
+          tl.fromTo(
+            "#g2_climax",
+            { x: 1080, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: SLIDE,
+              ease: "power3.out",
+              immediateRender: false,
+            },
+            G2_CLIMAX,
+          );
+          fadeIn("#g2_icon", 8.08, 0.22);
+          tl.fromTo(
+            "#g2_glyph",
+            { scale: 0.4, rotation: -8, opacity: 0 },
+            {
+              scale: 1,
+              rotation: 0,
+              opacity: 1,
+              duration: 0.32,
+              ease: "back.out(2.4)",
+              immediateRender: false,
+            },
+            8.08,
+          );
+          tl.fromTo(
+            "#g2_glyph",
+            { rotation: 0 },
+            { rotation: 12, duration: 0.09, ease: "power2.out", immediateRender: false },
+            8.42,
+          );
+          tl.fromTo(
+            "#g2_glyph",
+            { rotation: 12 },
+            {
+              rotation: 0,
+              duration: 0.62,
+              ease: "elastic.out(1, 0.25)",
+              immediateRender: false,
+            },
+            8.52,
+          );
+          ringBurst("#g2_ring1", 8.2, 0.62);
+          ringBurst("#g2_ring2", 8.42, 0.62);
+
+          window.__timelines["03-concept"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-s1pe" id="root" data-composition-id="main" data-start="0" data-duration="8" data-fps="30" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-ey33" id="type-scene" class="clip" data-composition-id="code-typing" data-composition-src="compositions/code-typing.html" data-start="0" data-duration="4" data-track-index="0" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-izy3" id="shatter-scene" class="clip" data-composition-id="glass-shatter" data-composition-src="compositions/vfx-shatter.html" data-start="3.17" data-duration="1" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-0vle" id="end-card" class="clip" data-composition-id="end-card" data-composition-src="compositions/end-card.html" data-start="5" data-duration="3" data-track-index="0" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

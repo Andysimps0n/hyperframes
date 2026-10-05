@@ -1,0 +1,240 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("assets/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+    }
+
+    #n07-proof-paper,
+    #n07-proof-chrome,
+    #n07-proof-memo {
+      position: absolute;
+      inset: 0;
+    }
+
+    #n07-proof-paper {
+      background-color: #fff9f0;
+      background-image: radial-gradient(circle, #efe2cc 1.1px, transparent 1.15px);
+      background-size: 48px 48px;
+    }
+
+    #n07-proof-series,
+    #n07-proof-handle {
+      position: absolute;
+      margin: 0;
+      font-family: "Gaegu", sans-serif;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.2;
+      color: #7a7291;
+      white-space: nowrap;
+    }
+
+    #n07-proof-series {
+      top: 270px;
+      right: 72px;
+    }
+
+    #n07-proof-handle {
+      left: 72px;
+      bottom: 270px;
+    }
+
+    #n07-proof-card {
+      position: absolute;
+      left: 72px;
+      top: 560px;
+      width: 936px;
+      height: 640px;
+      transform-origin: 50% 50%;
+    }
+
+    #n07-proof-fill {
+      position: absolute;
+      inset: 28px;
+      background: #fbefdd;
+      border-radius: 28px;
+    }
+
+    #n07-proof-stroke {
+      position: absolute;
+      inset: 0;
+      width: 936px;
+      height: 640px;
+      overflow: visible;
+    }
+
+    #n07-proof-copy {
+      position: absolute;
+      left: 88px;
+      right: 88px;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #n07-proof-line {
+      margin: 0;
+      text-align: center;
+      font-family: "Jua", sans-serif;
+      font-weight: 400;
+      font-size: 84px;
+      line-height: 1.28;
+      letter-spacing: -0.01em;
+      color: #3d3553;
+      word-break: keep-all;
+    }
+
+    .n07-proof-row {
+      display: block;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="07-proof"
+    data-width="1080"
+    data-height="1920"
+    data-duration="4"
+  >
+    <div
+      id="n07-proof-paper"
+      class="clip"
+      data-start="0"
+      data-duration="4"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="n07-proof-chrome"
+      class="clip"
+      data-start="0"
+      data-duration="4"
+      data-track-index="1"
+    >
+      <p id="n07-proof-series">이것도 AI로 돼?</p>
+      <p id="n07-proof-handle">@crayon.sure</p>
+    </div>
+
+    <div
+      id="n07-proof-memo"
+      class="clip"
+      data-start="0"
+      data-duration="4"
+      data-track-index="2"
+    >
+      <div id="n07-proof-card">
+        <div id="n07-proof-fill"></div>
+        <svg id="n07-proof-stroke" viewBox="0 0 936 640" aria-hidden="true">
+          <defs>
+            <filter
+              id="n07-proof-wax"
+              filterUnits="userSpaceOnUse"
+              x="-40"
+              y="-40"
+              width="1016"
+              height="720"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.012"
+                numOctaves="2"
+                seed="7"
+                result="noise"
+              />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="noise"
+                scale="8"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+          </defs>
+          <rect
+            x="22"
+            y="22"
+            width="892"
+            height="596"
+            rx="36"
+            fill="none"
+            stroke="#A9D3F5"
+            stroke-width="18"
+            stroke-linejoin="round"
+            filter="url(#n07-proof-wax)"
+          />
+        </svg>
+        <div id="n07-proof-copy">
+          <p id="n07-proof-line"><span class="n07-proof-row">사실 이 영상도</span><span class="n07-proof-row">이렇게 만들었어요</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var tl = gsap.timeline({ paused: true });
+
+      tl.set("#n07-proof-card", { y: 128, opacity: 0, scale: 0.96, rotation: -3 }, 0);
+
+      tl.fromTo(
+        "#n07-proof-card",
+        { y: 128, opacity: 0, scale: 0.96, rotation: -3 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          rotation: -3,
+          duration: 1.2,
+          ease: "power3.out",
+          immediateRender: false,
+        },
+        0.6
+      );
+
+      window.__timelines["07-proof"] = tl;
+    })();
+  </script>
+</template>

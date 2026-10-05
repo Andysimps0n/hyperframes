@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("capture/assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-700.ttf") format("truetype"); font-weight: 700; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fcf6ec;
+          color: #3d3553;
+          font-family: "IBM Plex Sans KR", sans-serif;
+        }
+        .paper {
+          position: absolute;
+          inset: 0;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .handle {
+          position: absolute;
+          left: 72px;
+          bottom: 286px;
+          font-size: 32px;
+          font-weight: 600;
+        }
+        .series {
+          position: absolute;
+          right: 64px;
+          top: 278px;
+          font-family: "Gaegu", cursive;
+          font-size: 40px;
+          background: #f9b4c4;
+          border-radius: 999px;
+          padding: 4px 22px 8px;
+        }
+        .stage {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 520px;
+        }
+        .episode {
+          font-family: "Gaegu", cursive;
+          font-size: 46px;
+          margin-bottom: 28px;
+        }
+        h1 {
+          margin: 0;
+          font-family: "Jua", sans-serif;
+          font-size: 72px;
+          font-weight: 400;
+          line-height: 1.28;
+          letter-spacing: -0.03em;
+        }
+        .rule {
+          margin-top: 18px;
+          width: 420px;
+          height: 28px;
+        }
+        .rule path {
+          fill: none;
+          stroke: #7eb6e0;
+          stroke-width: 10;
+          stroke-linecap: round;
+          filter: url(#crayon-hook);
+        }
+      </style>
+      <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+        <svg width="0" height="0" aria-hidden="true">
+          <filter id="crayon-hook" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" />
+          </filter>
+        </svg>
+        <div id="hook-paper" class="paper clip" data-start="0" data-duration="2.143" data-track-index="0"></div>
+        <div class="handle">@crayon.sure</div>
+        <div class="series">AI, 이것도 돼?</div>
+        <div class="stage">
+          <div class="episode" id="hook-episode">AI, 이것도 돼? 1탄 : Hyperframes</div>
+          <h1>
+            <div id="hook-line-a">요즘 유행하는 모션 그래픽,</div>
+            <div id="hook-line-b">AI로 쉽게 만드는 법</div>
+          </h1>
+          <svg class="rule" id="rule" viewBox="0 0 420 28">
+            <path id="hook-rule-path" d="M8 16 C 80 8, 160 22, 240 14 S 360 18, 412 12" />
+          </svg>
+        </div>
+      </div>
+      <script>
+        document.fonts.ready.then(() => {
+          const path = document.getElementById("hook-rule-path");
+          const length = path.getTotalLength();
+          path.style.strokeDasharray = String(length);
+          path.style.strokeDashoffset = String(length);
+          const speed = 1.4;
+          const t = (seconds) => seconds / speed;
+          const tl = gsap.timeline({ paused: true });
+          tl.from("#hook-episode", { opacity: 0, y: 16, duration: t(0.35), ease: "power2.out" }, t(0.15));
+          tl.from("#hook-line-a", { opacity: 0, y: 28, duration: t(0.4), ease: "power3.out" }, t(0.4));
+          tl.from("#hook-line-b", { opacity: 0, y: 28, duration: t(0.4), ease: "power3.out" }, t(0.7));
+          tl.to(path, { strokeDashoffset: 0, duration: t(0.45), ease: "power1.inOut" }, t(1.15));
+          window.__timelines["hook"] = tl;
+        });
+      </script>
+    </template>
+  </body>
+</html>

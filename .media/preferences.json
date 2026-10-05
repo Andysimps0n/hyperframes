@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "instagram-reels",
+      "confirmed_in": [
+        "hyper_frames"
+      ],
+      "updated_at": "2026-10-05T06:54:38.108Z"
+    },
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "hyper_frames"
+      ],
+      "updated_at": "2026-10-05T06:54:38.213Z"
+    },
+    "language": {
+      "value": "ko",
+      "confirmed_in": [
+        "hyper_frames"
+      ],
+      "updated_at": "2026-10-05T06:54:38.249Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "hyper_frames"
+      ],
+      "updated_at": "2026-10-05T06:54:38.283Z"
+    },
+    "storyboard": {
+      "value": "no",
+      "confirmed_in": [
+        "hyper_frames"
+      ],
+      "updated_at": "2026-10-05T06:54:38.316Z"
+    }
+  },
+  "sightings": {}
+}

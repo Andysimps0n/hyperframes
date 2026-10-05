@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      .frame { position: absolute; inset: 0; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-2wr5" id="root" data-composition-id="main" data-start="0" data-duration="49" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-bdcq" id="el-01-search" class="frame" data-composition-id="01-search" data-composition-src="compositions/frames/01-search.html" data-start="0" data-duration="8.777" data-width="1080" data-height="1920" data-track-index="1"></div>
+
+      <div data-hf-id="hf-o8ko" id="el-02-select" class="frame" data-composition-id="02-select" data-composition-src="compositions/frames/02-select.html" data-start="8.777" data-duration="11.331" data-width="1080" data-height="1920" data-track-index="1"></div>
+
+      <div data-hf-id="hf-ro3y" id="el-03-concept" class="frame" data-composition-id="03-concept" data-composition-src="compositions/frames/03-concept.html" data-start="20.108" data-duration="9.474" data-width="1080" data-height="1920" data-track-index="1"></div>
+
+      <div data-hf-id="hf-35wh" id="el-04-riser" class="frame" data-composition-id="04-riser" data-composition-src="compositions/frames/04-riser.html" data-start="29.582" data-duration="5.643" data-width="1080" data-height="1920" data-track-index="1"></div>
+
+      <div data-hf-id="hf-t28s" id="el-05-capabilities" class="frame" data-composition-id="05-capabilities" data-composition-src="compositions/frames/05-capabilities.html" data-start="35.225" data-duration="10.775" data-width="1080" data-height="1920" data-track-index="1"></div>
+
+      <div data-hf-id="hf-ebnm" id="el-06-hold" class="frame" data-composition-id="06-hold" data-composition-src="compositions/frames/06-hold.html" data-start="46" data-duration="3" data-width="1080" data-height="1920" data-track-index="1"></div>
+
+      <!-- SFX. Each cue is one file from the HeyGen catalog, placed on the storyboard times. -->
+      <audio data-hf-id="hf-mzfa" id="el-sfx-typing" src="assets/sfx/keyboard-typing.mp3" data-start="0" data-duration="4.992" data-track-index="12" data-volume="0.55"></audio>
+      <audio data-hf-id="hf-g2tx" id="el-sfx-whoosh-select" src="assets/sfx/whoosh.mp3" data-start="8.777" data-duration="1.58" data-track-index="13" data-volume="0.8"></audio>
+      <audio data-hf-id="hf-ejrj" id="el-sfx-click" src="assets/sfx/mouse-click.mp3" data-start="12.562" data-duration="0.288" data-track-index="14" data-volume="1"></audio>
+      <audio data-hf-id="hf-ejf3" id="el-sfx-whoosh-concept" src="assets/sfx/whoosh.mp3" data-start="20.108" data-duration="1.58" data-track-index="13" data-volume="0.8"></audio>
+      <audio data-hf-id="hf-cu5m" id="el-sfx-riser" src="assets/sfx/riser.mp3" data-start="30.488" data-duration="4.97" data-track-index="15" data-volume="0.75"></audio>
+      <audio data-hf-id="hf-j3es" id="el-sfx-shutter-1" src="assets/sfx/burst-shutter.mp3" data-start="35.225" data-duration="1.176" data-track-index="16" data-volume="0.9"></audio>
+      <audio data-hf-id="hf-kc1m" id="el-sfx-shutter-2" src="assets/sfx/burst-shutter.mp3" data-start="37.129" data-duration="1.176" data-track-index="16" data-volume="0.9"></audio>
+      <audio data-hf-id="hf-lrso" id="el-sfx-shutter-3" src="assets/sfx/burst-shutter.mp3" data-start="39.01" data-duration="1.176" data-track-index="16" data-volume="0.9"></audio>
+      <audio data-hf-id="hf-z3h2" id="el-sfx-shutter-4" src="assets/sfx/burst-shutter.mp3" data-start="40.914" data-duration="1.176" data-track-index="16" data-volume="0.9"></audio>
+      <audio data-hf-id="hf-ndzp" id="el-sfx-shutter-5" src="assets/sfx/burst-shutter.mp3" data-start="42.794" data-duration="1.176" data-track-index="16" data-volume="0.9"></audio>
+      <audio data-hf-id="hf-p5wb" id="el-sfx-whoosh-hold" src="assets/sfx/whoosh.mp3" data-start="46" data-duration="1.58" data-track-index="13" data-volume="0.8"></audio>
+
+      <!-- BGM -->
+      <audio data-hf-id="hf-2lq1" id="el-bgm" src="assets/bgm.mp3" data-start="0" data-duration="49" data-track-index="11" data-volume="0.9"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

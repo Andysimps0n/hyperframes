@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HyperFrames promo — storyboard v1</title>
+    <style>
+      :root {
+        --bg: #121211;
+        --ink: #000000;
+        --paper: #f5f7f6;
+        --green: #3cdb78;
+        --cyan: #24e0d0;
+        --hint: #6a7470;
+        --line: #2c3330;
+        --panel: #141816;
+        --sheet: #1c1c1a;
+        --muted: #9aa39f;
+        --sans: "Apple SD Gothic Neo", "Noto Sans KR", "Helvetica Neue", sans-serif;
+        --mono: "SF Mono", "IBM Plex Mono", ui-monospace, monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--paper);
+        font-family: var(--sans);
+      }
+      header {
+        padding: 36px 40px 20px;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+      h1 span { color: var(--green); }
+      .dek { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+      .tag {
+        display: inline-block;
+        margin-top: 14px;
+        padding: 4px 8px;
+        border: 1px solid var(--line);
+        color: var(--cyan);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .act {
+        max-width: 1280px;
+        margin: 8px auto 0;
+        padding: 18px 40px 0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+      .grid {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 12px 40px 64px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px 22px;
+      }
+      .cell { min-width: 0; }
+      .stage {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        background: var(--ink);
+        border: 1px solid var(--line);
+        container-type: inline-size;
+        overflow: hidden;
+      }
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 10px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--paper);
+      }
+      .meta .time { color: var(--hint); }
+      .note {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      .note strong { color: var(--paper); font-weight: 700; }
+      .chip {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 2px 7px;
+        border: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        color: var(--cyan);
+      }
+      .kicker {
+        position: absolute;
+        top: 6cqw;
+        left: 6cqw;
+        font-family: var(--mono);
+        font-size: 2.4cqw;
+        letter-spacing: 0.16em;
+        color: var(--green);
+      }
+      .q {
+        position: absolute;
+        left: 6cqw;
+        right: 6cqw;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 0.92;
+        color: var(--paper);
+      }
+      .tracks {
+        position: absolute;
+        left: 6cqw;
+        right: 6cqw;
+        top: 14cqw;
+        display: flex;
+        flex-direction: column;
+        gap: 1.6cqw;
+      }
+      .track {
+        display: flex;
+        gap: 1cqw;
+        height: 4.2cqw;
+      }
+      .clip {
+        height: 100%;
+        background: #1c2420;
+        border: 1px solid #24302a;
+      }
+      .clip.hot { background: var(--green); border-color: var(--green); }
+      .clip.dim { background: #101412; }
+      .editor {
+        position: absolute;
+        left: 6cqw;
+        right: 6cqw;
+        background: var(--panel);
+        border: 1px solid var(--line);
+      }
+      .titlebar {
+        height: 6cqw;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 1.2cqw;
+        padding: 0 2.4cqw;
+        font-family: var(--mono);
+        font-size: 2.2cqw;
+        letter-spacing: 0.08em;
+        color: var(--hint);
+      }
+      .dot {
+        width: 1.5cqw;
+        height: 1.5cqw;
+        border-radius: 50%;
+        background: var(--line);
+      }
+      .dot.on { background: var(--green); }
+      .code {
+        padding: 2.4cqw;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5cqw;
+      }
+      .line {
+        height: 2.2cqw;
+        background: #24302a;
+      }
+      .line.live {
+        background: transparent;
+        height: auto;
+        font-family: var(--mono);
+        font-size: 2.5cqw;
+        color: var(--paper);
+      }
+      .caret {
+        display: inline-block;
+        width: 1.1cqw;
+        height: 2.6cqw;
+        background: var(--green);
+        vertical-align: -0.3cqw;
+        margin-left: 0.4cqw;
+      }
+      .stack {
+        position: absolute;
+        left: 6cqw;
+        right: 6cqw;
+        top: 28cqw;
+        display: flex;
+        flex-direction: column;
+        gap: 3cqw;
+      }
+      .stack p {
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: -0.045em;
+        line-height: 0.92;
+      }
+      .green { color: var(--green); }
+      .lock {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6cqw;
+        padding: 8cqw;
+        text-align: center;
+      }
+      .lock img { width: 28cqw; height: auto; }
+      .word {
+        margin: 0;
+        font-weight: 900;
+        font-size: 9cqw;
+        letter-spacing: -0.05em;
+        line-height: 0.9;
+      }
+      .wide { grid-column: span 2; }
+      .seam, .tokens {
+        background: var(--sheet);
+        border: 1px solid var(--line);
+        padding: 18px 18px 16px;
+        min-height: 180px;
+      }
+      .seam h2, .tokens h2 {
+        margin: 0 0 12px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--green);
+      }
+      .strip {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .stop {
+        background: var(--ink);
+        border: 1px solid var(--line);
+        padding: 8px 10px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .arrow { color: var(--cyan); font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; }
+      .swatches { display: flex; gap: 10px; flex-wrap: wrap; }
+      .swatch { width: 72px; }
+      .swatch i {
+        display: block;
+        height: 42px;
+        border: 1px solid var(--line);
+      }
+      .swatch b, .swatch em {
+        display: block;
+        margin-top: 4px;
+        font-style: normal;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+      .bans { margin: 14px 0 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
+      @media (max-width: 980px) {
+        .grid { grid-template-columns: 1fr; }
+        .wide { grid-column: auto; }
+        header, .act, .grid { padding-left: 16px; padding-right: 16px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>HyperFrames promo <span>v1</span></h1>
+      <p class="dek">타임라인이 사라지고, 코드가 영상이 됩니다. 각 칸은 그 장면의 핵심 순간입니다. 움직임은 없습니다.</p>
+      <div class="tag">1080×1920 · 20s · 6 beats · shorts</div>
+    </header>
+
+    <div class="act">Before</div>
+    <div class="grid">
+      <article class="cell">
+        <div class="stage" id="frame-01">
+          <div class="kicker">TIMELINE</div>
+          <div class="tracks" style="top: 14cqw; bottom: 8cqw; justify-content: space-between;">
+            <div class="track"><i class="clip" style="width:22%"></i><i class="clip hot" style="width:18%"></i><i class="clip" style="width:30%"></i><i class="clip dim" style="width:14%"></i></div>
+            <div class="track"><i class="clip dim" style="width:12%"></i><i class="clip" style="width:40%"></i><i class="clip" style="width:16%"></i></div>
+            <div class="track"><i class="clip" style="width:28%"></i><i class="clip" style="width:10%"></i><i class="clip hot" style="width:22%"></i><i class="clip dim" style="width:20%"></i></div>
+            <div class="track"><i class="clip dim" style="width:36%"></i><i class="clip" style="width:24%"></i></div>
+            <div class="track"><i class="clip" style="width:14%"></i><i class="clip" style="width:18%"></i><i class="clip dim" style="width:26%"></i><i class="clip" style="width:12%"></i></div>
+            <div class="track"><i class="clip hot" style="width:16%"></i><i class="clip" style="width:34%"></i><i class="clip dim" style="width:18%"></i></div>
+            <div class="track"><i class="clip dim" style="width:20%"></i><i class="clip" style="width:22%"></i><i class="clip" style="width:15%"></i></div>
+            <div class="track"><i class="clip" style="width:30%"></i><i class="clip dim" style="width:12%"></i><i class="clip" style="width:24%"></i></div>
+            <div class="track"><i class="clip dim" style="width:18%"></i><i class="clip" style="width:26%"></i><i class="clip dim" style="width:14%"></i></div>
+            <div class="track"><i class="clip" style="width:24%"></i><i class="clip dim" style="width:20%"></i><i class="clip" style="width:16%"></i></div>
+            <div class="track"><i class="clip dim" style="width:40%"></i><i class="clip" style="width:18%"></i></div>
+            <div class="track"><i class="clip" style="width:16%"></i><i class="clip dim" style="width:22%"></i><i class="clip" style="width:12%"></i></div>
+          </div>
+          <p class="q" style="bottom: 12cqw; font-size: 8.2cqw; background: #000000;">영상 하나 만드는데,<br />아직도 이렇게<br />하세요?</p>
+        </div>
+        <div class="meta"><span>01 · Timeline</span><span class="time">01-timeline · 0.0–4.0s</span></div>
+        <p class="note"><strong>트랙이 먼저 쌓여 있고, 질문이 그 위에 앉습니다.</strong> 초록 클립 몇 개만 포인트입니다. 다음 장면으로 컷입니다.</p>
+        <span class="chip">CUT IN</span>
+      </article>
+    </div>
+
+    <div class="act">Bridge</div>
+    <div class="grid">
+      <article class="cell">
+        <div class="stage" id="frame-02">
+          <div class="kicker">COMPOSITION.HTML</div>
+          <div class="editor" style="top: 16cqw; height: 96cqw;">
+            <div class="titlebar"><i class="dot"></i><i class="dot"></i><i class="dot on"></i> composition.html</div>
+            <div class="code">
+              <i class="line" style="width:46%"></i>
+              <i class="line" style="width:72%"></i>
+              <i class="line" style="width:38%"></i>
+              <i class="line" style="width:64%"></i>
+              <i class="line" style="width:28%"></i>
+              <i class="line" style="width:54%"></i>
+            </div>
+          </div>
+          <p class="q" style="bottom: 8cqw; font-size: 7.4cqw;">코드로 영상을<br />작성하는건<br />어떤가요?</p>
+        </div>
+        <div class="meta"><span>02 · Question</span><span class="time">02-question · 4.0–7.0s</span></div>
+        <p class="note"><strong>타임라인이 컷으로 사라지고, 에디터가 들어옵니다.</strong> 질문은 에디터 아래가 주인공입니다.</p>
+        <span class="chip">CUT</span>
+      </article>
+
+      <article class="cell">
+        <div class="stage" id="frame-03">
+          <div class="editor" style="top: 8cqw; height: 52cqw;">
+            <div class="titlebar"><i class="dot on"></i> composition.html</div>
+            <div class="code">
+              <i class="line" style="width:40%"></i>
+              <i class="line" style="width:66%"></i>
+              <div class="line live">render("film")<i class="caret"></i></div>
+              <i class="line" style="width:34%"></i>
+            </div>
+          </div>
+          <div class="stack" style="top: auto; bottom: 10cqw;">
+            <p style="font-size: 5.5cqw; color: var(--hint);">코드를 작성하면</p>
+            <p style="font-size: 8.6cqw;">영상이<br /><span class="green">만들어집니다.</span></p>
+          </div>
+        </div>
+        <div class="meta"><span>03 · Write</span><span class="time">03-write · 7.0–10.0s</span></div>
+        <p class="note"><strong>커서가 한 줄을 치고, 두 문장이 아래에서 커집니다.</strong> 같은 에디터 세계라 앞 장면과는 크로스페이드입니다.</p>
+        <span class="chip">CROSSFADE</span>
+      </article>
+    </div>
+
+    <div class="act">After</div>
+    <div class="grid">
+      <article class="cell">
+        <div class="stage" id="frame-04">
+          <div class="stack" style="top: 22cqw;">
+            <p style="font-size: 8cqw; opacity: 0.28;">수정하고</p>
+            <p style="font-size: 8cqw; opacity: 0.55;">바로 확인하고</p>
+            <p style="font-size: 11cqw;">다시<br /><span class="green">만들고.</span></p>
+          </div>
+        </div>
+        <div class="meta"><span>04 · Loop</span><span class="time">04-loop · 10.0–15.0s</span></div>
+        <p class="note"><strong>세 문장이 가운데에서 하나씩 바뀝니다.</strong> 이 칸은 크기 차이를 보려고 세 줄을 같이 그렸습니다. 들어온 전환은 컷입니다.</p>
+        <span class="chip">CUT</span>
+      </article>
+
+      <article class="cell">
+        <div class="stage" id="frame-05">
+          <p class="q" style="top: 32cqw; font-size: 12cqw;">영상도,<br />이제 <span class="green">코드로.</span></p>
+        </div>
+        <div class="meta"><span>05 · Line</span><span class="time">05-line · 15.0–18.0s</span></div>
+        <p class="note"><strong>한 문장이 화면을 채웁니다.</strong> 초록은 “코드로.” 한 곳입니다. 앞 장면과는 크로스페이드입니다.</p>
+        <span class="chip">CROSSFADE</span>
+      </article>
+
+      <article class="cell">
+        <div class="stage" id="frame-06">
+          <div class="lock">
+            <img src="assets/hyperframes-mark.png" alt="HyperFrames 아이콘" />
+            <p class="word" style="font-size: 7.4cqw;">HYPERFRAMES<span class="green">로.</span></p>
+          </div>
+        </div>
+        <div class="meta"><span>06 · HyperFrames</span><span class="time">06-hyperframes · 18.0–20.0s</span></div>
+        <p class="note"><strong>아이콘과 이름이 가운데에 잠깁니다.</strong> 움직임은 셔터 슬램이고, 이 칸은 멈춘 끝 모습입니다. 컷으로 들어옵니다.</p>
+        <span class="chip">CUT · SHUTTER</span>
+      </article>
+
+      <article class="cell wide">
+        <div class="seam">
+          <h2>Seams</h2>
+          <div class="strip">
+            <div class="stop">01 타임라인</div>
+            <div class="arrow">CUT →</div>
+            <div class="stop">02 질문</div>
+            <div class="arrow">CROSSFADE →</div>
+            <div class="stop">03 작성</div>
+            <div class="arrow">CUT →</div>
+            <div class="stop">04 반복</div>
+            <div class="arrow">CROSSFADE →</div>
+            <div class="stop">05 한 줄</div>
+            <div class="arrow">CUT →</div>
+            <div class="stop">06 이름</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="cell">
+        <div class="tokens">
+          <h2>Tokens</h2>
+          <div class="swatches">
+            <div class="swatch"><i style="background:#000"></i><b>ground</b><em>#000000</em></div>
+            <div class="swatch"><i style="background:#f5f7f6"></i><b>type</b><em>#F5F7F6</em></div>
+            <div class="swatch"><i style="background:#3cdb78"></i><b>green</b><em>#3CDB78</em></div>
+            <div class="swatch"><i style="background:#24e0d0"></i><b>cyan</b><em>#24E0D0</em></div>
+          </div>
+          <p class="bans">글자는 Noto Sans KR 900. 작은 라벨만 IBM Plex Mono. 바닥은 검정 하나. 초록은 한 장면의 포인트, 청록은 아이콘 그라데이션의 두 번째 색. 화면 전체를 초록으로 뒤집지 않습니다. 목소리는 없습니다.</p>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

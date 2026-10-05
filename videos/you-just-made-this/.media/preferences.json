@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "preferences": {
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "you-just-made-this"
+      ],
+      "updated_at": "2026-10-02T00:39:48.817Z"
+    },
+    "language": {
+      "value": "en",
+      "confirmed_in": [
+        "you-just-made-this"
+      ],
+      "updated_at": "2026-10-02T00:39:48.840Z"
+    }
+  },
+  "sightings": {}
+}

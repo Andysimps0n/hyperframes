@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("capture/assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-700.ttf") format("truetype"); font-weight: 700; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fcf6ec;
+          color: #3d3553;
+          perspective: 1600px;
+        }
+        .paper {
+          position: absolute;
+          inset: 0;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .page {
+          position: absolute;
+          inset: 0;
+          background: #f3e6d0;
+          transform-origin: left center;
+          z-index: 5;
+        }
+        .handle {
+          position: absolute;
+          left: 72px;
+          bottom: 286px;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 32px;
+          font-weight: 600;
+        }
+        .series {
+          position: absolute;
+          right: 64px;
+          top: 278px;
+          font-family: "Gaegu", cursive;
+          font-size: 40px;
+          background: #f9b4c4;
+          border-radius: 999px;
+          padding: 4px 22px 8px;
+        }
+        .box {
+          position: absolute;
+          left: 70px;
+          right: 70px;
+          top: 760px;
+          min-height: 168px;
+          background: #fffdf8;
+          border-radius: 36px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 28px 24px 28px 32px;
+        }
+        .box-edge {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+        }
+        .typed {
+          flex: 1;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 36px;
+          font-weight: 600;
+          line-height: 1.45;
+          min-height: 104px;
+        }
+        .caret {
+          display: inline-block;
+          width: 3px;
+          height: 38px;
+          background: #3d3553;
+          margin-left: 2px;
+          vertical-align: text-bottom;
+        }
+        .send {
+          width: 92px;
+          height: 92px;
+          border-radius: 28px;
+          background: #a9d3f5;
+          display: grid;
+          place-items: center;
+          flex: none;
+        }
+        .send svg {
+          width: 42px;
+          height: 42px;
+        }
+        .caption {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1280px;
+          text-align: center;
+          font-family: "Jua", sans-serif;
+          font-size: 64px;
+        }
+      </style>
+      <div id="root" data-composition-id="prompt" data-width="1080" data-height="1920">
+        <svg width="0" height="0">
+          <filter id="crayon-prompt">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="1" seed="2" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="1.4" />
+          </filter>
+        </svg>
+        <div id="prompt-paper" class="paper clip" data-start="0" data-duration="8.571" data-track-index="0"></div>
+        <div class="handle">@crayon.sure</div>
+        <div class="series">AI, 이것도 돼?</div>
+        <div class="box" id="prompt-box">
+          <svg class="box-edge" viewBox="0 0 940 180" preserveAspectRatio="none">
+            <rect x="6" y="6" width="928" height="168" rx="32" fill="none" stroke="#7eb6e0" stroke-width="8" filter="url(#crayon-prompt)" />
+          </svg>
+          <div class="typed"><span id="prompt-chars"></span><span class="caret" id="prompt-caret"></span></div>
+          <div class="send" id="prompt-send">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M8 24 H34 M24 12 L38 24 L24 36" stroke="#3d3553" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="caption" id="prompt-caption">한 줄이면 돼요</div>
+        <div class="page" id="prompt-page"></div>
+      </div>
+      <script>
+        document.fonts.ready.then(() => {
+          const full = "Hyperframes를 소개하는 영상을 만들어줘.";
+          const chars = Array.from(full);
+          const charsEl = document.getElementById("prompt-chars");
+          const speed = 1.4;
+          const t = (seconds) => seconds / speed;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#prompt-page", { rotateY: 0 }, { rotateY: -105, duration: t(0.28), ease: "power2.in" }, 0);
+          tl.from("#prompt-box", { opacity: 0, y: 24, duration: t(0.4), ease: "power2.out" }, t(0.35));
+          tl.to(
+            {},
+            {
+              duration: t(7.4),
+              ease: "none",
+              onUpdate() {
+                const count = Math.round(this.progress() * chars.length);
+                charsEl.textContent = chars.slice(0, count).join("");
+              },
+            },
+            t(0.9),
+          );
+          tl.to("#prompt-caret", { opacity: 0, duration: t(0.35), repeat: 8, yoyo: true, ease: "none" }, t(0.9));
+          tl.from("#prompt-caption", { opacity: 0, y: 16, duration: t(0.35), ease: "power2.out" }, t(1.05));
+          tl.to("#prompt-send", { scale: 0.86, duration: t(0.12), yoyo: true, repeat: 1, ease: "power1.inOut" }, t(8.7));
+          window.__timelines["prompt"] = tl;
+        });
+      </script>
+    </template>
+  </body>
+</html>

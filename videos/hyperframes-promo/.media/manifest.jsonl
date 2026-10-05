@@ -1,0 +1,6 @@
+{"id":"image_001","type":"image","path":"assets/hyperframes-mark.png","source":"existing","description":"hyperframes mark","width":400,"height":400,"provenance":{"provider":"local","adopted":true}}
+{"id":"bgm_001","type":"bgm","path":"assets/bgm/track.mp3","source":"search","description":"cinematic house, driving kick, no vocals, night","duration":22,"provenance":{"provider":"heygen","prompt":"cinematic house, driving kick, no vocals, night"}}
+{"id":"sfx_001","type":"sfx","path":"assets/sfx/whoosh.mp3","source":"search","description":"whoosh","duration":1.6,"provenance":{"provider":"heygen","prompt":"whoosh"}}
+{"id":"sfx_002","type":"sfx","path":"assets/sfx/keyboard-typing.mp3","source":"search","description":"keyboard typing","duration":44.4,"provenance":{"provider":"heygen","prompt":"keyboard typing"}}
+{"id":"sfx_003","type":"sfx","path":"assets/sfx/impact.mp3","source":"search","description":"impact","duration":5.4,"provenance":{"provider":"heygen","prompt":"impact"}}
+{"id":"sfx_004","type":"sfx","path":"assets/sfx/camera-burst.mp3","source":"search","description":"camera burst","duration":1.2,"provenance":{"provider":"heygen","prompt":"camera burst"}}

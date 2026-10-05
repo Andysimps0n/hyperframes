@@ -1,0 +1,223 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("assets/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+    }
+
+    #n06-message-paper,
+    #n06-message-chrome {
+      position: absolute;
+      inset: 0;
+    }
+
+    #n06-message-paper {
+      background-color: #fff9f0;
+      background-image: radial-gradient(circle, #efe2cc 1.1px, transparent 1.15px);
+      background-size: 48px 48px;
+    }
+
+    #n06-message-series,
+    #n06-message-handle {
+      position: absolute;
+      margin: 0;
+      font-family: "Gaegu", sans-serif;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.2;
+      color: #7a7291;
+      white-space: nowrap;
+    }
+
+    #n06-message-series {
+      top: 270px;
+      right: 72px;
+    }
+
+    #n06-message-handle {
+      left: 72px;
+      bottom: 270px;
+    }
+
+    #n06-message-stage {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 360px;
+      bottom: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 72px;
+      box-sizing: border-box;
+    }
+
+    #n06-message-lockup {
+      position: relative;
+      width: 100%;
+    }
+
+    #n06-message-line1 {
+      margin: 0;
+      text-align: center;
+      font-family: "Jua", sans-serif;
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+      color: #3d3553;
+      white-space: nowrap;
+      word-break: keep-all;
+      transform-origin: 50% 50%;
+    }
+
+    #n06-message-mark {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+
+    #n06-message-mark::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: -0.08em;
+      right: -0.08em;
+      bottom: 0.12em;
+      height: 0.46em;
+      background: #ffe08a;
+      border-radius: 8px;
+    }
+
+    #n06-message-line2 {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% + 40px);
+      margin: 0;
+      text-align: center;
+      font-family: "Pretendard", sans-serif;
+      font-weight: 600;
+      font-size: 36px;
+      line-height: 1.45;
+      color: #3d3553;
+      word-break: keep-all;
+    }
+
+    .n06-message-row {
+      display: block;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="06-message"
+    data-width="1080"
+    data-height="1920"
+    data-duration="5"
+  >
+    <div
+      id="n06-message-paper"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="n06-message-chrome"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="1"
+    >
+      <p id="n06-message-series">이것도 AI로 돼?</p>
+      <p id="n06-message-handle">@crayon.sure</p>
+    </div>
+
+    <div
+      id="n06-message-stage"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="2"
+    >
+      <div id="n06-message-lockup">
+        <p id="n06-message-line1">여러분, HyperFrames <span id="n06-message-mark">좋아요</span>!</p>
+        <p id="n06-message-line2"><span class="n06-message-row">HyperFrames를 쓰면 말 한 줄로,</span><span class="n06-message-row">원하는 그대로 나오는 영상을 만들 수 있어요.</span></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    // Scene 1: title eases up into the safe center, marker already behind 좋아요.
+    // Scene 2: line 2 slides up under line 1. Line 1 shifts up and stays (no fade-out).
+    // Scene 3: both lines hold. No camera drift, no exit.
+    var tl = gsap.timeline({ paused: true });
+
+    tl.fromTo(
+      "#n06-message-line1",
+      { y: 56, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" },
+      0
+    );
+
+    tl.set("#n06-message-line2", { y: 128, opacity: 0 }, 0);
+
+    tl.fromTo(
+      "#n06-message-lockup",
+      { y: 0 },
+      { y: -72, duration: 1.45, ease: "power3.out", immediateRender: false },
+      1.6
+    );
+
+    tl.fromTo(
+      "#n06-message-line2",
+      { y: 128, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.45, ease: "power3.out", immediateRender: false },
+      1.6
+    );
+
+    window.__timelines["06-message"] = tl;
+  </script>
+</template>

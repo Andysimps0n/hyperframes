@@ -1,0 +1,19 @@
+{
+  "bgm": null,
+  "bgm_pending": false,
+  "voices": [],
+  "sfx": [
+    { "frame": 1, "file": "assets/sfx/pop.mp3", "offset_s": 0.9, "duration_s": 0.72, "volume": 0.4 },
+    { "frame": 2, "file": "assets/sfx/whoosh.mp3", "offset_s": 0.05, "duration_s": 0.57, "volume": 0.35 },
+    { "frame": 3, "file": "assets/sfx/pop.mp3", "offset_s": 1.2, "duration_s": 0.72, "volume": 0.35 },
+    { "frame": 3, "file": "assets/sfx/click-soft.mp3", "offset_s": 3.2, "duration_s": 0.37, "volume": 0.4 },
+    { "frame": 3, "file": "assets/sfx/click.mp3", "offset_s": 5.2, "duration_s": 0.37, "volume": 0.4 },
+    { "frame": 4, "file": "assets/sfx/typing.mp3", "offset_s": 1.2, "duration_s": 1.5, "volume": 0.45 },
+    { "frame": 5, "file": "assets/sfx/click.mp3", "offset_s": 1.3, "duration_s": 0.37, "volume": 0.35 },
+    { "frame": 5, "file": "assets/sfx/pop.mp3", "offset_s": 3.0, "duration_s": 0.72, "volume": 0.35 },
+    { "frame": 5, "file": "assets/sfx/ping.mp3", "offset_s": 5.25, "duration_s": 1.32, "volume": 0.3 },
+    { "frame": 6, "file": "assets/sfx/chime.mp3", "offset_s": 0.3, "duration_s": 2.5, "volume": 0.3 },
+    { "frame": 7, "file": "assets/sfx/sparkle.mp3", "offset_s": 0.6, "duration_s": 1.8, "volume": 0.3 },
+    { "frame": 8, "file": "assets/sfx/notification.mp3", "offset_s": 1.5, "duration_s": 2.46, "volume": 0.35 }
+  ]
+}

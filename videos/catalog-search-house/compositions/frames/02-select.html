@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        @font-face { font-family: "IBM Plex Mono"; src: url("assets/fonts/plex-400.ttf") format("truetype"); font-weight: 500; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #111111;
+          color: #f0ece5;
+          font-family: "Jua", "IBM Plex Sans KR", sans-serif;
+        }
+
+        #g1,
+        #g2,
+        #g3 {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        #g2,
+        #g3 {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        #g1_stack,
+        #g2_stack {
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 28px;
+          width: 100%;
+          height: 100%;
+          padding: 72px;
+        }
+
+        .chrome {
+          display: block;
+          font-family: "IBM Plex Mono", ui-monospace, monospace;
+          font-size: 22px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #e85d26;
+        }
+
+        .rule {
+          display: block;
+          width: 36px;
+          height: 2px;
+          background: #e85d26;
+        }
+
+        #g1_lock,
+        #g2_lock {
+          position: relative;
+          width: 100%;
+        }
+
+        #g1_unit,
+        #g2_unit {
+          position: relative;
+          display: flex;
+          align-items: center;
+          box-sizing: border-box;
+          width: 100%;
+          min-height: 280px;
+          padding: 48px 132px 48px 40px;
+          transform-origin: 50% 50%;
+        }
+
+        #g1_row,
+        #g2_row {
+          position: absolute;
+          inset: 0;
+          background: #1a1a18;
+          border-top: 1px solid #282826;
+          border-bottom: 1px solid #282826;
+        }
+
+        #g2_bar {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          display: block;
+          width: 8px;
+          background: #e85d26;
+        }
+
+        #g1_line,
+        #g2_line {
+          position: relative;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.04em;
+          color: #f0ece5;
+        }
+
+        #g1_line {
+          font-size: 120px;
+        }
+
+        #g2_line {
+          display: block;
+          width: max-content;
+          max-width: 100%;
+          font-size: 148px;
+          transform-origin: left center;
+        }
+
+        .g1_char {
+          display: inline-block;
+          opacity: 0;
+        }
+
+        #g1_c2 {
+          width: 0.35em;
+        }
+
+        #g1_caret {
+          display: inline-block;
+          width: 0.08em;
+          height: 0.86em;
+          margin-left: 0.06em;
+          background: #e85d26;
+          opacity: 1;
+        }
+
+        #g1_badge,
+        #g2_badge {
+          position: absolute;
+          top: 32px;
+          right: 132px;
+          display: block;
+          width: 44px;
+          height: 44px;
+          background: #e85d26;
+          transform-origin: 50% 50%;
+        }
+
+        #g1_badge {
+          opacity: 0;
+        }
+
+        #g1_cursor,
+        #g2_cursor {
+          position: absolute;
+          top: 50%;
+          right: 28px;
+          display: block;
+          width: 64px;
+          height: 64px;
+          margin-top: -8px;
+          color: #e85d26;
+          transform-origin: 18% 10%;
+        }
+
+        #g1_cursor {
+          opacity: 0;
+        }
+
+        #g1_cursor svg,
+        #g2_cursor svg,
+        #g3_glyph svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        #g1_flash,
+        #g2_flash {
+          position: absolute;
+          inset: 0;
+          background: #f0ece5;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .g3_layer {
+          position: absolute;
+          inset: 0;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          padding: 72px;
+          opacity: 0;
+        }
+
+        .g3_word {
+          display: block;
+          font-weight: 900;
+          font-size: 200px;
+          line-height: 0.92;
+          letter-spacing: -0.04em;
+          white-space: nowrap;
+          color: #f0ece5;
+        }
+
+        #g3_w1,
+        #g3_w2 {
+          opacity: 0;
+        }
+
+        #g3_slide {
+          position: relative;
+          display: block;
+        }
+
+        #g3_w3 {
+          font-size: 240px;
+          color: #e85d26;
+        }
+
+        #g3_icon {
+          position: absolute;
+          left: 100%;
+          top: 50%;
+          display: block;
+          width: 128px;
+          height: 128px;
+          margin-top: -64px;
+          margin-left: 36px;
+          opacity: 0;
+        }
+
+        #g3_glyph {
+          position: relative;
+          display: block;
+          width: 128px;
+          height: 128px;
+          color: #e85d26;
+          transform-origin: 50% 50%;
+        }
+
+        #g3_ring1,
+        #g3_ring2 {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          display: block;
+          width: 168px;
+          height: 168px;
+          margin-left: -84px;
+          margin-top: -84px;
+          box-sizing: border-box;
+          border: 3px solid #f0ece5;
+          opacity: 0;
+          transform-origin: 50% 50%;
+        }
+
+        #g3_ring2 {
+          border-color: #888880;
+        }
+      </style>
+
+      <div data-hf-id="hf-xh1j" id="root" data-composition-id="02-select" data-width="1080" data-height="1920" data-duration="11.331">
+        <!-- g1  local 0–3.785  type the result, pop the badge, click on the beat -->
+        <div data-hf-id="hf-h7r5" id="g1">
+          <div data-hf-id="hf-2pre" id="g1_flash"></div>
+          <div data-hf-id="hf-tpn8" id="g1_stack">
+            <div data-hf-id="hf-g8y7" id="g1_kicker" class="chrome">01</div>
+            <div data-hf-id="hf-m4il" id="g1_rule" class="rule"></div>
+            <div data-hf-id="hf-7xfd" id="g1_lock">
+              <div data-hf-id="hf-gk2m" id="g1_unit">
+                <div data-hf-id="hf-m60g" id="g1_row"></div>
+                <div data-hf-id="hf-gzq5" id="g1_badge"></div>
+                <div data-hf-id="hf-h2i2" id="g1_line">
+                  <span data-hf-id="hf-cosv" id="g1_c0" class="g1_char">1</span>
+                  <span data-hf-id="hf-qmmj" id="g1_c1" class="g1_char">위</span>
+                  <span data-hf-id="hf-zzfi" id="g1_c2" class="g1_char"> </span>
+                  <span data-hf-id="hf-phfh" id="g1_c3" class="g1_char">선</span>
+                  <span data-hf-id="hf-tlgn" id="g1_c4" class="g1_char">택</span>
+                  <span data-hf-id="hf-83hm" id="g1_caret"></span>
+                </div>
+              </div>
+              <div data-hf-id="hf-4ccy" id="g1_cursor">
+                <svg data-hf-id="hf-gegz" viewBox="0 0 24 24" fill="currentColor">
+                  <path data-hf-id="hf-lnhu" d="M5.5 2.6l13.4 7.9-5.9 1.2-1.1 5.9-6.4-15z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- g2  local 3.785–5.689  the chosen row slams, then holds still -->
+        <div data-hf-id="hf-l5v6" id="g2">
+          <div data-hf-id="hf-xoqx" id="g2_flash"></div>
+          <div data-hf-id="hf-i7rr" id="g2_stack">
+            <div data-hf-id="hf-6gn7" id="g2_kicker" class="chrome">02</div>
+            <div data-hf-id="hf-sq2o" id="g2_rule" class="rule"></div>
+            <div data-hf-id="hf-t1jg" id="g2_lock">
+              <div data-hf-id="hf-jtxv" id="g2_unit">
+                <div data-hf-id="hf-71hf" id="g2_row"></div>
+                <div data-hf-id="hf-wipg" id="g2_bar"></div>
+                <div data-hf-id="hf-gnp2" id="g2_badge"></div>
+                <div data-hf-id="hf-pc5w" id="g2_line">이 트랙</div>
+              </div>
+              <div data-hf-id="hf-n2mr" id="g2_cursor">
+                <svg data-hf-id="hf-qldv" viewBox="0 0 24 24" fill="currentColor">
+                  <path data-hf-id="hf-kz5i" d="M5.5 2.6l13.4 7.9-5.9 1.2-1.1 5.9-6.4-15z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- g3  local 5.689–11.331  kinetic cascade: 음악이 / 컷을 / 정한다 + cursor -->
+        <div data-hf-id="hf-rbkz" id="g3">
+          <div data-hf-id="hf-nhne" id="g3_p1" class="g3_layer">
+            <span data-hf-id="hf-2jby" id="g3_w1" class="g3_word">음악이</span>
+          </div>
+          <div data-hf-id="hf-jjjd" id="g3_p2" class="g3_layer">
+            <span data-hf-id="hf-ccm1" id="g3_w2" class="g3_word">컷을</span>
+          </div>
+          <div data-hf-id="hf-irvk" id="g3_p3" class="g3_layer">
+            <div data-hf-id="hf-jtrp" id="g3_slide">
+              <span data-hf-id="hf-e90y" id="g3_w3" class="g3_word">정한다</span>
+              <span data-hf-id="hf-bmbo" id="g3_icon">
+                <span data-hf-id="hf-as1i" id="g3_ring1"></span>
+                <span data-hf-id="hf-4mbp" id="g3_ring2"></span>
+                <span data-hf-id="hf-fomz" id="g3_glyph">
+                  <svg data-hf-id="hf-q72u" viewBox="0 0 24 24" fill="currentColor">
+                    <path data-hf-id="hf-ldgj" d="M5.5 2.6l13.4 7.9-5.9 1.2-1.1 5.9-6.4-15z" />
+                  </svg>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        /*
+          Frame-local clock. The track window is 8.777–20.108, so every
+          anchor below is track time minus 8.777:
+            g1 hits  0, 1.904, 3.785
+            g2 hold  3.785–5.689
+            g3 words 5.689, 7.570, climax 9.451, icon lands 11.331
+          One paused timeline. Group cuts are 0ms autoAlpha sets.
+          fromTo (not from) so a seek back to 0 replays the same pixels.
+          Tweens that start after 0 use immediateRender:false so a later
+          from-state does not clobber the earlier one at registration.
+        */
+        const tl = gsap.timeline({ paused: true });
+
+        /* g1 — typewriter. One set per character, held after it flips on. */
+        tl.set("#g1_c0", { opacity: 1 }, 0);
+        tl.set("#g1_c1", { opacity: 1 }, 0.28);
+        tl.set("#g1_c2", { opacity: 1 }, 0.56);
+        tl.set("#g1_c3", { opacity: 1 }, 0.84);
+        tl.set("#g1_c4", { opacity: 1 }, 1.12);
+        tl.set("#g1_caret", { opacity: 0 }, 1.28);
+        tl.set("#g1_caret", { opacity: 1 }, 1.42);
+        tl.set("#g1_caret", { opacity: 0 }, 1.56);
+        tl.set("#g1_caret", { opacity: 1 }, 1.7);
+        tl.set("#g1_caret", { opacity: 0 }, 1.904);
+
+        /* g1 — overlay pops on the second anchor and stays. */
+        tl.fromTo(
+          "#g1_badge",
+          { opacity: 0, scale: 0.72 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out", immediateRender: false },
+          1.904,
+        );
+
+        /* Cursor enters with the badge, then arrives on the row at the click. */
+        tl.fromTo(
+          "#g1_cursor",
+          { x: 200, y: 240, opacity: 0 },
+          { x: 80, y: 80, opacity: 1, duration: 0.28, ease: "power2.out", immediateRender: false },
+          1.904,
+        );
+        tl.fromTo(
+          "#g1_cursor",
+          { x: 80, y: 80 },
+          { x: 0, y: 0, duration: 1.601, ease: "power2.in", immediateRender: false },
+          2.184,
+        );
+        tl.fromTo(
+          "#g1_cursor",
+          { scale: 1 },
+          { scale: 0.84, duration: 0.08, ease: "power2.in", immediateRender: false },
+          3.705,
+        );
+
+        /* Braam lands ON the click (local 3.785), then the group hard-cuts. */
+        tl.fromTo(
+          "#g1_unit",
+          { scale: 1 },
+          { scale: 1.08, duration: 0.18, ease: "power4.out", immediateRender: false },
+          3.605,
+        );
+        tl.fromTo(
+          "#g1_flash",
+          { opacity: 0 },
+          { opacity: 0.72, duration: 0.08, ease: "power4.out", immediateRender: false },
+          3.705,
+        );
+
+        tl.set("#g1", { autoAlpha: 0 }, 3.785);
+        tl.set("#g2", { autoAlpha: 1 }, 3.785);
+
+        /* g2 — second braam, then a hard freeze. Nothing tweens after 4.485. */
+        tl.fromTo(
+          "#g2_line",
+          { scale: 0.9, opacity: 0.35 },
+          { scale: 1.14, opacity: 1, duration: 0.12, ease: "power4.out", immediateRender: false },
+          3.785,
+        );
+        tl.fromTo(
+          "#g2_line",
+          { scale: 1.14 },
+          {
+            scale: 1,
+            duration: 0.58,
+            ease: "power3.out",
+            immediateRender: false,
+            overwrite: "auto",
+          },
+          3.905,
+        );
+        tl.fromTo(
+          "#g2_flash",
+          { opacity: 0 },
+          { opacity: 0.8, duration: 0.06, ease: "power4.out", immediateRender: false },
+          3.785,
+        );
+        tl.fromTo(
+          "#g2_flash",
+          { opacity: 0.8 },
+          { opacity: 0, duration: 0.32, ease: "power3.in", immediateRender: false },
+          3.845,
+        );
+        tl.set("#g2_line", { scale: 1, opacity: 1 }, 4.485);
+        tl.set("#g2_flash", { opacity: 0 }, 4.485);
+
+        tl.set("#g2", { autoAlpha: 0 }, 5.689);
+        tl.set("#g3", { autoAlpha: 1 }, 5.689);
+
+        /* g3 — intro-kinetic-cascade. Each phrase is one word, hard-cut to the next. */
+        tl.fromTo(
+          "#g3_p1",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.01, immediateRender: false },
+          5.689,
+        );
+        tl.fromTo(
+          "#g3_w1",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.18, ease: "power2.out", immediateRender: false },
+          5.689,
+        );
+        tl.fromTo(
+          "#g3_p1",
+          { opacity: 1 },
+          { opacity: 0, duration: 0.1, ease: "power2.in", immediateRender: false },
+          7.47,
+        );
+
+        tl.fromTo(
+          "#g3_p2",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.01, immediateRender: false },
+          7.57,
+        );
+        tl.fromTo(
+          "#g3_w2",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.18, ease: "power2.out", immediateRender: false },
+          7.57,
+        );
+        tl.fromTo(
+          "#g3_p2",
+          { opacity: 1 },
+          { opacity: 0, duration: 0.1, ease: "power2.in", immediateRender: false },
+          9.351,
+        );
+
+        /* Climax slides in at 9.451 and holds. The cursor icon finishes at 11.331. */
+        tl.fromTo(
+          "#g3_p3",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.42, ease: "power3.out", immediateRender: false },
+          9.451,
+        );
+        tl.fromTo(
+          "#g3_slide",
+          { x: 780 },
+          { x: 0, duration: 0.42, ease: "power3.out", immediateRender: false },
+          9.451,
+        );
+        tl.fromTo(
+          "#g3_icon",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.35, ease: "power3.out", immediateRender: false },
+          10.981,
+        );
+        tl.fromTo(
+          "#g3_glyph",
+          { scale: 0.4, rotation: -8 },
+          { scale: 1.08, rotation: 12, duration: 0.22, ease: "power3.out", immediateRender: false },
+          10.981,
+        );
+        tl.fromTo(
+          "#g3_glyph",
+          { scale: 1.08, rotation: 12 },
+          { scale: 1, rotation: 0, duration: 0.13, ease: "power2.out", immediateRender: false },
+          11.201,
+        );
+        tl.fromTo(
+          "#g3_ring1",
+          { scale: 0.4, opacity: 0.55 },
+          { scale: 1.35, opacity: 0, duration: 0.281, ease: "power2.out", immediateRender: false },
+          11.05,
+        );
+        tl.fromTo(
+          "#g3_ring2",
+          { scale: 0.4, opacity: 0.4 },
+          { scale: 1.2, opacity: 0, duration: 0.231, ease: "power2.out", immediateRender: false },
+          11.1,
+        );
+
+        window.__timelines["02-select"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

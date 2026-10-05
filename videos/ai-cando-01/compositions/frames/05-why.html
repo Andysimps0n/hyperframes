@@ -1,0 +1,453 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("assets/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: #3d3553;
+      font-family: "Pretendard";
+      word-break: keep-all;
+    }
+
+    #n05-why-paper {
+      position: absolute;
+      inset: 0;
+      background-color: #fff9f0;
+      background-image: radial-gradient(circle, #efe2cc 1.1px, transparent 1.2px);
+      background-size: 48px 48px;
+    }
+
+    #n05-why-series,
+    #n05-why-handle {
+      position: absolute;
+      z-index: 3;
+      margin: 0;
+      color: #7a7291;
+      font-family: "Gaegu";
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    #n05-why-series {
+      top: 270px;
+      right: 72px;
+    }
+
+    #n05-why-handle {
+      bottom: 270px;
+      left: 72px;
+    }
+
+    #n05-why-stage {
+      position: absolute;
+      z-index: 1;
+      top: 360px;
+      right: 72px;
+      bottom: 360px;
+      left: 72px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #n05-why-title {
+      flex: 0 0 auto;
+      margin: 0 0 32px;
+      color: #3d3553;
+      font-family: "Jua";
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+    }
+
+    #n05-why-mark {
+      position: relative;
+      display: inline-block;
+    }
+
+    #n05-why-sun {
+      position: absolute;
+      z-index: 0;
+      right: -0.08em;
+      bottom: 0.12em;
+      left: -0.08em;
+      height: 0.4em;
+      border-radius: 6px;
+      background: #ffe08a;
+    }
+
+    #n05-why-mark-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    #n05-why-card {
+      position: relative;
+      flex: 1 1 auto;
+      min-height: 0;
+      border-radius: 36px;
+      background: #ffffff;
+    }
+
+    #n05-why-border {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      border: 6px solid #3d3553;
+      border-radius: 36px;
+      background: transparent;
+      pointer-events: none;
+      filter: url("#n05-why-crayon");
+    }
+
+    #n05-why-table {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 16px;
+      border: 0;
+      border-spacing: 0;
+    }
+
+    #n05-why-table thead,
+    #n05-why-table tbody {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    #n05-why-table thead {
+      flex: 0 0 156px;
+    }
+
+    #n05-why-table tbody {
+      flex: 1 1 auto;
+      gap: 12px;
+    }
+
+    #n05-why-table tr {
+      display: flex;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    #n05-why-table thead tr {
+      height: 100%;
+    }
+
+    #n05-why-table tbody tr {
+      flex: 1 1 0;
+    }
+
+    #n05-why-table th,
+    #n05-why-table td {
+      display: flex;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    #n05-why-table th:nth-child(1),
+    #n05-why-table td:nth-child(1) {
+      flex: 0 0 300px;
+    }
+
+    #n05-why-table th:nth-child(2),
+    #n05-why-table td:nth-child(2),
+    #n05-why-table th:nth-child(3),
+    #n05-why-table td:nth-child(3) {
+      flex: 1 1 0;
+    }
+
+    .n05-why-cell {
+      box-sizing: border-box;
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+      width: 100%;
+      min-width: 0;
+      padding: 18px 16px;
+      border-radius: 18px;
+    }
+
+    .n05-why-cell > span {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .n05-why-cell-label {
+      background: #fbefdd;
+      font-family: "Pretendard";
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .n05-why-cell-label > span {
+      text-align: left;
+    }
+
+    .n05-why-cell-ai {
+      background: #f9b4c4;
+      font-family: "Pretendard";
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .n05-why-cell-hf {
+      gap: 14px;
+      background: #b4e3be;
+      font-family: "Pretendard";
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .n05-why-cell-head {
+      font-family: "Jua";
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .n05-why-check {
+      align-self: center;
+      display: block;
+      flex: 0 0 auto;
+      width: 80px;
+      height: 80px;
+    }
+
+    .n05-why-check path {
+      fill: none;
+      stroke: #3e9960;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url("#n05-why-crayon");
+    }
+  </style>
+
+  <div id="root" data-composition-id="05-why" data-width="1080" data-height="1920" data-duration="7.5">
+    <svg id="n05-why-defs" width="0" height="0" aria-hidden="true">
+      <defs>
+        <filter id="n05-why-crayon" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="5" result="n" />
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" />
+        </filter>
+      </defs>
+    </svg>
+
+    <div id="n05-why-paper" class="clip" data-start="0" data-duration="7.5" data-track-index="0"></div>
+    <p id="n05-why-series">이것도 AI로 돼?</p>
+    <p id="n05-why-handle">@crayon.sure</p>
+
+    <div id="n05-why-stage">
+      <h1 id="n05-why-title">왜 <span id="n05-why-mark"><span id="n05-why-sun"></span><span id="n05-why-mark-text">좋아요</span></span>?</h1>
+      <div id="n05-why-card">
+        <div id="n05-why-border"></div>
+        <table id="n05-why-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <div id="n05-why-head-ai" class="n05-why-cell n05-why-cell-ai n05-why-cell-head">
+                  <span>생성형 AI 영상</span>
+                </div>
+              </th>
+              <th>
+                <div id="n05-why-head-hf" class="n05-why-cell n05-why-cell-hf n05-why-cell-head">
+                  <span>HyperFrames</span>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>
+                <div id="n05-why-label-1" class="n05-why-cell n05-why-cell-label">
+                  <span>화면 속 글자</span>
+                </div>
+              </th>
+              <td>
+                <div id="n05-why-ai-1" class="n05-why-cell n05-why-cell-ai">
+                  <span>뭉개질 때가 있어요</span>
+                </div>
+              </td>
+              <td>
+                <div id="n05-why-hf-1" class="n05-why-cell n05-why-cell-hf">
+                  <svg class="n05-why-check" viewBox="0 0 64 64" aria-hidden="true">
+                    <path id="n05-why-check-1a" d="M14 34 L28 48" />
+                    <path id="n05-why-check-1b" d="M28 48 L52 16" />
+                  </svg>
+                  <span>쓴 그대로 나와요</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <div id="n05-why-label-2" class="n05-why-cell n05-why-cell-label">
+                  <span>다시 만들면</span>
+                </div>
+              </th>
+              <td>
+                <div id="n05-why-ai-2" class="n05-why-cell n05-why-cell-ai">
+                  <span>매번 달라져요</span>
+                </div>
+              </td>
+              <td>
+                <div id="n05-why-hf-2" class="n05-why-cell n05-why-cell-hf">
+                  <svg class="n05-why-check" viewBox="0 0 64 64" aria-hidden="true">
+                    <path id="n05-why-check-2a" d="M14 34 L28 48" />
+                    <path id="n05-why-check-2b" d="M28 48 L52 16" />
+                  </svg>
+                  <span>몇 번을 뽑아도 같아요</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>
+                <div id="n05-why-label-3" class="n05-why-cell n05-why-cell-label">
+                  <span>한 군데만 고치기</span>
+                </div>
+              </th>
+              <td>
+                <div id="n05-why-ai-3" class="n05-why-cell n05-why-cell-ai">
+                  <span>처음부터 다시</span>
+                </div>
+              </td>
+              <td>
+                <div id="n05-why-hf-3" class="n05-why-cell n05-why-cell-hf">
+                  <svg class="n05-why-check" viewBox="0 0 64 64" aria-hidden="true">
+                    <path id="n05-why-check-3a" d="M14 34 L28 48" />
+                    <path id="n05-why-check-3b" d="M28 48 L52 16" />
+                  </svg>
+                  <span>그 부분 코드만</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="05-why"]');
+      var lengths = {};
+
+      root.querySelectorAll(".n05-why-check path").forEach(function (path) {
+        var len = path.getTotalLength();
+        path.style.strokeDasharray = String(len);
+        path.style.strokeDashoffset = String(len);
+        lengths[path.id] = len;
+      });
+
+      var tl = gsap.timeline({ paused: true });
+
+      function arrive(id, at) {
+        tl.fromTo(
+          id,
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" },
+          at
+        );
+      }
+
+      function drawCheck(row, at) {
+        var first = "n05-why-check-" + row + "a";
+        var second = "n05-why-check-" + row + "b";
+        var firstDur = 0.38;
+        tl.fromTo(
+          "#" + first,
+          { strokeDashoffset: lengths[first] },
+          { strokeDashoffset: 0, duration: firstDur, ease: "power2.out" },
+          at
+        );
+        tl.fromTo(
+          "#" + second,
+          { strokeDashoffset: lengths[second] },
+          { strokeDashoffset: 0, duration: firstDur * 0.75, ease: "power2.out" },
+          at + firstDur * 0.72
+        );
+      }
+
+      tl.fromTo("#n05-why-series", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0);
+      tl.fromTo("#n05-why-handle", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.05);
+      tl.fromTo("#n05-why-card", { opacity: 0 }, { opacity: 1, duration: 0.36, ease: "power2.out" }, 0.04);
+      tl.fromTo("#n05-why-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.08);
+      tl.fromTo(
+        "#n05-why-sun",
+        { scaleX: 0 },
+        { scaleX: 1, transformOrigin: "left center", duration: 0.46, ease: "power2.out" },
+        0.3
+      );
+      arrive("#n05-why-head-ai", 0.36);
+      arrive("#n05-why-head-hf", 0.64);
+
+      arrive("#n05-why-label-1", 1.3);
+      arrive("#n05-why-ai-1", 1.72);
+      arrive("#n05-why-hf-1", 2.12);
+      drawCheck(1, 2.5);
+
+      arrive("#n05-why-label-2", 3.0);
+      arrive("#n05-why-ai-2", 3.42);
+      arrive("#n05-why-hf-2", 3.82);
+      drawCheck(2, 4.2);
+
+      arrive("#n05-why-label-3", 4.35);
+      arrive("#n05-why-ai-3", 4.65);
+      arrive("#n05-why-hf-3", 4.95);
+      drawCheck(3, 5.25);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["05-why"] = tl;
+    })();
+  </script>
+</template>

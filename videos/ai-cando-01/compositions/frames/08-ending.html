@@ -1,0 +1,312 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("assets/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: block;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: #3d3553;
+    }
+
+    [id="n08-ending-paper"] {
+      position: absolute;
+      inset: 0;
+      background-color: #fff9f0;
+      background-image: radial-gradient(circle, #efe2cc 1.1px, transparent 1.2px);
+      background-size: 48px 48px;
+    }
+
+    [id="n08-ending-series"] {
+      position: absolute;
+      top: 270px;
+      right: 72px;
+      margin: 0;
+      font-family: "Gaegu", cursive;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7a7291;
+      word-break: keep-all;
+    }
+
+    [id="n08-ending-handle"] {
+      position: absolute;
+      left: 72px;
+      bottom: 270px;
+      margin: 0;
+      font-family: "Gaegu", cursive;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7a7291;
+      word-break: keep-all;
+    }
+
+    [id="n08-ending-stage"] {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      top: 390px;
+      bottom: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Ids are prefixed with n08-ending-, so selectors are attributes.
+       A #08-… id is not valid CSS or querySelector syntax. */
+    [id="n08-ending-line"] {
+      width: 100%;
+      min-height: 170px;
+      margin: 0;
+      text-align: center;
+      font-family: "Jua", sans-serif;
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+      color: #3d3553;
+      word-break: keep-all;
+    }
+
+    [id^="n08-ending-w"] {
+      display: inline-block;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    [id="n08-ending-mark"] {
+      position: relative;
+      display: inline-block;
+      z-index: 1;
+    }
+
+    [id="n08-ending-mark"]::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      left: -0.06em;
+      right: -0.06em;
+      bottom: 0.12em;
+      height: 0.46em;
+      background: #ffe08a;
+      border-radius: 8px;
+    }
+
+    [id="n08-ending-lower"] {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+    }
+
+    [id="n08-ending-chips"] {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    [id="n08-ending-chip-save"],
+    [id="n08-ending-chip-follow"] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 40px;
+      border-radius: 999px;
+      font-family: "Jua", sans-serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.35;
+      color: #3d3553;
+      word-break: keep-all;
+      transform-origin: 50% 50%;
+    }
+
+    [id="n08-ending-chip-save"] {
+      background: #a9d3f5;
+    }
+
+    [id="n08-ending-chip-follow"] {
+      background: #ffe08a;
+    }
+
+    [id="n08-ending-memo"] {
+      position: relative;
+      background: #fbefdd;
+      border-radius: 28px;
+      padding: 18px 36px 16px;
+      transform-origin: 50% 50%;
+    }
+
+    [id="n08-ending-memo-stroke"] {
+      position: absolute;
+      inset: 0;
+      border: 5px dashed #b9b1c9;
+      border-radius: 28px;
+      pointer-events: none;
+      filter: url("#n08-ending-crayon");
+    }
+
+    [id="n08-ending-memo-text"] {
+      position: relative;
+      font-family: "Gaegu", cursive;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #3d3553;
+      word-break: keep-all;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="08-ending"
+    data-width="1080"
+    data-height="1920"
+    data-duration="5"
+  >
+    <div
+      id="n08-ending-paper"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="0"
+    ></div>
+
+    <p id="n08-ending-series">이것도 AI로 돼?</p>
+    <p id="n08-ending-handle">@crayon.sure</p>
+
+    <div id="n08-ending-stage">
+      <p id="n08-ending-line">
+        <span id="n08-ending-w0">댓글에</span>
+        <span id="n08-ending-w1">"<span id="n08-ending-mark">프롬프트</span>"</span>
+        <span id="n08-ending-w2">남기면</span>
+        <span id="n08-ending-w3">제가</span>
+        <span id="n08-ending-w4">쓴</span>
+        <span id="n08-ending-w5">프롬프트</span>
+        <span id="n08-ending-w6">보내드려요</span>
+      </p>
+
+      <div id="n08-ending-lower">
+        <div id="n08-ending-chips">
+          <div id="n08-ending-chip-save">🔖 저장하고 써먹기</div>
+          <div id="n08-ending-chip-follow">👀 팔로우하고 다음 편 보기</div>
+        </div>
+        <div id="n08-ending-memo">
+          <div id="n08-ending-memo-stroke"></div>
+          <span id="n08-ending-memo-text">다음 편에서 만나요!</span>
+        </div>
+      </div>
+    </div>
+
+    <svg width="0" height="0" aria-hidden="true" style="position: absolute">
+      <filter id="n08-ending-crayon" x="-20%" y="-40%" width="140%" height="180%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.8" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </svg>
+  </div>
+
+  <script>
+    // Three beats stack and stay. Word timing is computed once from
+    // character length, then fitted inside Scene 1 (0–1.6s).
+    const WORD_ENTRIES = [
+      { id: "n08-ending-w0", chars: 3 },
+      { id: "n08-ending-w1", chars: 4 },
+      { id: "n08-ending-w2", chars: 3 },
+      { id: "n08-ending-w3", chars: 2 },
+      { id: "n08-ending-w4", chars: 1 },
+      { id: "n08-ending-w5", chars: 4 },
+      { id: "n08-ending-w6", chars: 5 },
+    ];
+
+    const BASE_DURATION = 0.14;
+    const SEC_PER_CHAR = 0.02;
+    const SCENE1_START = 0.1;
+    const SCENE1_WINDOW = 1.2;
+
+    let cursor = 0;
+    const wordTimeline = WORD_ENTRIES.map((entry) => {
+      const span = BASE_DURATION + entry.chars * SEC_PER_CHAR;
+      const start = cursor;
+      cursor += span;
+      return { id: entry.id, start: start, span: span };
+    });
+    const fit = SCENE1_WINDOW / cursor;
+
+    const tl = gsap.timeline({ paused: true });
+
+    wordTimeline.forEach((entry) => {
+      tl.fromTo(
+        '[id="' + entry.id + '"]',
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" },
+        SCENE1_START + entry.start * fit,
+      );
+    });
+
+    tl.fromTo(
+      '[id="n08-ending-chip-save"]',
+      { opacity: 0, scale: 0.84, y: 18 },
+      { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "power3.out" },
+      1.6,
+    );
+
+    tl.fromTo(
+      '[id="n08-ending-chip-follow"]',
+      { opacity: 0, scale: 0.84, y: 18 },
+      { opacity: 1, scale: 1, y: 0, duration: 0.55, ease: "power3.out" },
+      2.2,
+    );
+
+    tl.fromTo(
+      '[id="n08-ending-memo"]',
+      { opacity: 0, scale: 0.92, y: 16, rotation: -8 },
+      { opacity: 1, scale: 1, y: 0, rotation: -4, duration: 0.65, ease: "power3.out" },
+      3.2,
+    );
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["08-ending"] = tl;
+  </script>
+</template>

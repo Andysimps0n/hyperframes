@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>AI, 이것도 돼? 1탄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600&family=Jua&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #fcf6ec;
+      }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="28.571"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="scene-hook" data-composition-id="hook" data-composition-src="compositions/hook.html" data-start="0" data-duration="2.143" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-compare" data-composition-id="compare" data-composition-src="compositions/compare.html" data-start="2.143" data-duration="5" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-intro" data-composition-id="intro" data-composition-src="compositions/intro.html" data-start="7.143" data-duration="3.571" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-prompt" data-composition-id="prompt" data-composition-src="compositions/prompt.html" data-start="10.714" data-duration="8.571" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-result" data-composition-id="result" data-composition-src="compositions/result.html" data-start="19.286" data-duration="4.286" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="scene-ending" data-composition-id="ending" data-composition-src="compositions/ending.html" data-start="23.571" data-duration="5" data-track-index="1" data-width="1080" data-height="1920"></div>
+
+      <audio id="bgm" src=".media/audio/bgm/bgm_002.wav" data-start="0" data-duration="28.571" data-track-index="8" data-volume="1" data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0},{"t":0.45,"v":0.16},{"t":26.6,"v":0.16},{"t":28.3,"v":0}]}]}'></audio>
+
+      <audio id="sfx-pen-hook" src="assets/sfx/pen-stroke.mp3" data-start="0.821" data-duration="0.32" data-volume="0.7" data-track-index="2"></audio>
+      <audio id="sfx-pen-0" src="assets/sfx/pen-stroke.mp3" data-start="2.857" data-duration="0.32" data-volume="0.7" data-track-index="2"></audio>
+      <audio id="sfx-pen-1" src="assets/sfx/pen-stroke.mp3" data-start="3.821" data-duration="0.32" data-volume="0.7" data-track-index="2"></audio>
+      <audio id="sfx-pen-2" src="assets/sfx/pen-stroke.mp3" data-start="4.786" data-duration="0.32" data-volume="0.7" data-track-index="2"></audio>
+      <audio id="sfx-pen-3" src="assets/sfx/pen-stroke.mp3" data-start="5.75" data-duration="0.32" data-volume="0.7" data-track-index="2"></audio>
+      <audio id="sfx-page-2" src="assets/sfx/page-turn.mp3" data-start="2.143" data-duration="0.3" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sfx-page-3" src="assets/sfx/page-turn.mp3" data-start="7.143" data-duration="0.3" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sfx-page-4" src="assets/sfx/page-turn.mp3" data-start="10.714" data-duration="0.3" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sfx-page-5" src="assets/sfx/page-turn.mp3" data-start="19.286" data-duration="0.3" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sfx-page-6" src="assets/sfx/page-turn.mp3" data-start="23.571" data-duration="0.3" data-volume="0.45" data-track-index="3"></audio>
+      <audio id="sfx-type-0" src="assets/sfx/typing.mp3" data-start="11.429" data-duration="1.071" data-volume="0.55" data-track-index="4"></audio>
+      <audio id="sfx-type-1" src="assets/sfx/typing.mp3" data-start="12.5" data-duration="1.071" data-volume="0.55" data-track-index="4"></audio>
+      <audio id="sfx-type-2" src="assets/sfx/typing.mp3" data-start="13.571" data-duration="1.071" data-volume="0.55" data-track-index="4"></audio>
+      <audio id="sfx-type-3" src="assets/sfx/typing.mp3" data-start="14.643" data-duration="1.071" data-volume="0.55" data-track-index="4"></audio>
+      <audio id="sfx-type-4" src="assets/sfx/typing.mp3" data-start="15.714" data-duration="1.071" data-volume="0.55" data-track-index="4"></audio>
+      <audio id="sfx-enter" src="assets/sfx/enter.mp3" data-start="16.929" data-duration="0.26" data-volume="0.8" data-track-index="5"></audio>
+      <audio id="sfx-pop" src="assets/sfx/pop.mp3" data-start="19.643" data-duration="0.43" data-volume="0.85" data-track-index="6"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

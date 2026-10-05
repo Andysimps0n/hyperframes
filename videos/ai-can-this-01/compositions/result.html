@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("capture/assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-700.ttf") format("truetype"); font-weight: 700; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fcf6ec;
+          color: #3d3553;
+          perspective: 1600px;
+        }
+        .paper {
+          position: absolute;
+          inset: 0;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .page {
+          position: absolute;
+          inset: 0;
+          background: #f3e6d0;
+          transform-origin: left center;
+          z-index: 6;
+        }
+        .handle {
+          position: absolute;
+          left: 72px;
+          bottom: 286px;
+          z-index: 3;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 32px;
+          font-weight: 600;
+        }
+        .series {
+          position: absolute;
+          right: 64px;
+          top: 278px;
+          z-index: 3;
+          font-family: "Gaegu", cursive;
+          font-size: 40px;
+          background: #f9b4c4;
+          border-radius: 999px;
+          padding: 4px 22px 8px;
+        }
+        .mini-prompt {
+          position: absolute;
+          left: 70px;
+          right: 70px;
+          top: 760px;
+          height: 120px;
+          border-radius: 36px;
+          border: 7px solid #7eb6e0;
+          background: #fffdf8;
+          z-index: 2;
+        }
+        .phone {
+          position: absolute;
+          left: 270px;
+          top: 390px;
+          width: 540px;
+          height: 960px;
+          border-radius: 36px;
+          border: 8px solid #3d3553;
+          background: #fcf6ec;
+          overflow: hidden;
+          z-index: 2;
+          transform-origin: center center;
+          opacity: 0;
+          transform: scale(0.35);
+        }
+        .replay {
+          width: 1080px;
+          height: 1920px;
+          transform: scale(0.5);
+          transform-origin: top left;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .replay .episode {
+          position: absolute;
+          left: 72px;
+          top: 520px;
+          font-family: "Gaegu", cursive;
+          font-size: 46px;
+        }
+        .replay h1 {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 600px;
+          margin: 0;
+          font-family: "Jua", sans-serif;
+          font-size: 72px;
+          font-weight: 400;
+          line-height: 1.28;
+        }
+        .cap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1380px;
+          text-align: center;
+          font-family: "Jua", sans-serif;
+          font-size: 48px;
+          line-height: 1.25;
+          z-index: 3;
+        }
+      </style>
+      <div id="root" data-composition-id="result" data-width="1080" data-height="1920">
+        <div id="result-paper" class="paper clip" data-start="0" data-duration="4.286" data-track-index="0"></div>
+        <div class="handle">@crayon.sure</div>
+        <div class="series">AI, 이것도 돼?</div>
+        <div class="mini-prompt" id="result-mini"></div>
+        <div class="phone" id="result-phone">
+          <div class="replay">
+            <div class="episode" id="result-ep">AI, 이것도 돼? 1탄 : Hyperframes</div>
+            <h1>
+              <div id="result-la">요즘 유행하는 모션 그래픽,</div>
+              <div id="result-lb">AI로 쉽게 만드는 법</div>
+            </h1>
+          </div>
+        </div>
+        <div class="cap" id="result-cap">사실 이 영상도<br />이렇게 만들었어요</div>
+        <div class="page" id="result-page"></div>
+      </div>
+      <script>
+        document.fonts.ready.then(() => {
+          const speed = 1.4;
+          const t = (seconds) => seconds / speed;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#result-page", { rotateY: 0 }, { rotateY: -105, duration: t(0.28), ease: "power2.in" }, 0);
+          tl.to("#result-mini", { scale: 0.2, opacity: 0, y: -80, duration: t(0.55), ease: "power2.in" }, t(0.35));
+          tl.to("#result-phone", { scale: 1, opacity: 1, duration: t(0.6), ease: "power3.out" }, t(0.45));
+          tl.from("#result-ep", { opacity: 0, y: 16, duration: t(0.35) }, t(1.15));
+          tl.from("#result-la", { opacity: 0, y: 24, duration: t(0.4) }, t(1.4));
+          tl.from("#result-lb", { opacity: 0, y: 24, duration: t(0.4) }, t(1.7));
+          tl.from("#result-cap", { opacity: 0, y: 16, duration: t(0.35) }, t(2.2));
+          window.__timelines["result"] = tl;
+        });
+      </script>
+    </template>
+  </body>
+</html>

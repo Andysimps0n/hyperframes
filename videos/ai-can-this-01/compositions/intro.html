@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("capture/assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-700.ttf") format("truetype"); font-weight: 700; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fcf6ec;
+          color: #3d3553;
+          perspective: 1600px;
+        }
+        .paper {
+          position: absolute;
+          inset: 0;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .page {
+          position: absolute;
+          inset: 0;
+          background: #f3e6d0;
+          transform-origin: left center;
+          z-index: 5;
+        }
+        .handle {
+          position: absolute;
+          left: 72px;
+          bottom: 286px;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 32px;
+          font-weight: 600;
+        }
+        .series {
+          position: absolute;
+          right: 64px;
+          top: 278px;
+          font-family: "Gaegu", cursive;
+          font-size: 40px;
+          background: #f9b4c4;
+          border-radius: 999px;
+          padding: 4px 22px 8px;
+        }
+        .stage {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 620px;
+        }
+        h1 {
+          margin: 0;
+          font-family: "Jua", sans-serif;
+          font-size: 108px;
+          font-weight: 400;
+          letter-spacing: -0.03em;
+        }
+        .sub {
+          margin-top: 18px;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 42px;
+          font-weight: 600;
+          line-height: 1.4;
+        }
+        .note {
+          position: absolute;
+          left: 96px;
+          right: 96px;
+          top: 1080px;
+          font-family: "Gaegu", cursive;
+          font-size: 48px;
+          line-height: 1.35;
+          background: #fff8ea;
+          border-radius: 18px;
+          padding: 22px 28px 26px;
+          transform: rotate(-2.5deg);
+        }
+        .note .bar {
+          display: block;
+          height: 14px;
+          margin-top: 8px;
+        }
+        .note path {
+          fill: none;
+          stroke: #f9b4c4;
+          stroke-width: 8;
+          stroke-linecap: round;
+          filter: url(#crayon-intro);
+        }
+      </style>
+      <div id="root" data-composition-id="intro" data-width="1080" data-height="1920">
+        <svg width="0" height="0">
+          <filter id="crayon-intro">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="6" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2" />
+          </filter>
+        </svg>
+        <div id="intro-paper" class="paper clip" data-start="0" data-duration="3.571" data-track-index="0"></div>
+        <div class="handle">@crayon.sure</div>
+        <div class="series">AI, 이것도 돼?</div>
+        <div class="stage">
+          <h1 id="intro-name">HyperFrames</h1>
+          <div class="sub" id="intro-sub">코드를 통해 영상을 만드는 도구예요</div>
+        </div>
+        <div class="note" id="intro-note">
+          코드를 쓰기 때문에 AI가 쉽게 만들어요.<br />코딩은 몰라도 돼요!
+          <svg class="bar" viewBox="0 0 760 16"><path id="intro-note-path" d="M6 10 C 120 4, 240 14, 400 8 S 640 12, 750 6" /></svg>
+        </div>
+        <div class="page" id="intro-page"></div>
+      </div>
+      <script>
+        document.fonts.ready.then(() => {
+          const path = document.getElementById("intro-note-path");
+          const length = path.getTotalLength();
+          path.style.strokeDasharray = String(length);
+          path.style.strokeDashoffset = String(length);
+          const speed = 1.4;
+          const t = (seconds) => seconds / speed;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#intro-page", { rotateY: 0 }, { rotateY: -105, duration: t(0.28), ease: "power2.in" }, 0);
+          tl.from("#intro-name", { opacity: 0, y: 30, duration: t(0.45), ease: "power3.out" }, t(0.4));
+          tl.from("#intro-sub", { opacity: 0, y: 18, duration: t(0.4), ease: "power2.out" }, t(0.85));
+          tl.from("#intro-note", { opacity: 0, y: 20, duration: t(0.4), ease: "power2.out" }, t(1.45));
+          tl.to(path, { strokeDashoffset: 0, duration: t(0.5), ease: "power1.inOut" }, t(1.9));
+          window.__timelines["intro"] = tl;
+        });
+      </script>
+    </template>
+  </body>
+</html>

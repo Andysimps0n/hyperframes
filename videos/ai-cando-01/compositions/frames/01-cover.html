@@ -1,0 +1,271 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: #3d3553;
+      word-break: keep-all;
+    }
+
+    #root * {
+      box-sizing: border-box;
+    }
+
+    [id="01-cover-paper"] {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      background-color: #fff9f0;
+      background-image: radial-gradient(circle, #efe2cc 1.1px, transparent 1.2px);
+      background-size: 48px 48px;
+      background-position: center;
+    }
+
+    [id="01-cover-chrome"] {
+      position: absolute;
+      inset: 0;
+    }
+
+    [id="01-cover-series"],
+    [id="01-cover-handle"] {
+      position: absolute;
+      margin: 0;
+      font-family: "Gaegu", sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7a7291;
+      white-space: nowrap;
+    }
+
+    [id="01-cover-series"] {
+      top: 270px;
+      right: 72px;
+    }
+
+    [id="01-cover-handle"] {
+      bottom: 270px;
+      left: 72px;
+    }
+
+    [id="01-cover-stage"] {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      top: 448px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    [id="01-cover-pill"] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 12px 32px 14px;
+      background: #a9d3f5;
+      color: #3d3553;
+      border-radius: 999px;
+      font-family: "Jua", sans-serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.35;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+    }
+
+    [id="01-cover-title"] {
+      width: 100%;
+      margin: 64px 0 0;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: baseline;
+      gap: 0.16em;
+      font-family: "Jua", sans-serif;
+      /* 88px display only spans ~550px. 148px is the same Jua face, sized so this line fills the 936px column. */
+      font-size: 148px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: #3d3553;
+      text-align: center;
+    }
+
+    [id="01-cover-w0"],
+    [id="01-cover-w1"],
+    [id="01-cover-w2"] {
+      display: inline-block;
+      transform-origin: 50% 100%;
+    }
+
+    [id="01-cover-outcome"] {
+      margin: 420px 0 0;
+      font-family: "Pretendard", sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #3d3553;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    [id="01-cover-mark"] {
+      position: relative;
+      display: inline-block;
+    }
+
+    [id="01-cover-mark-word"] {
+      position: relative;
+      z-index: 1;
+    }
+
+    [id="01-cover-stroke"] {
+      position: absolute;
+      left: -8%;
+      width: 116%;
+      height: 18px;
+      bottom: -0.12em;
+      overflow: visible;
+      z-index: 0;
+    }
+
+    [id="01-cover-stroke-path"] {
+      fill: none;
+      stroke: #ffe08a;
+      stroke-width: 20;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-cover" data-width="1080" data-height="1920" data-duration="5">
+    <div
+      id="01-cover-paper"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="01-cover-chrome"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="1"
+    >
+      <p id="01-cover-series">이것도 AI로 돼?</p>
+      <p id="01-cover-handle">@crayon.sure</p>
+    </div>
+
+    <div
+      id="01-cover-stage"
+      class="clip"
+      data-start="0"
+      data-duration="5"
+      data-track-index="2"
+    >
+      <p id="01-cover-pill">이것도 AI로 돼? 1탄</p>
+      <h1 id="01-cover-title">
+        <span id="01-cover-w0">이것도</span>
+        <span id="01-cover-w1">AI로</span>
+        <span id="01-cover-w2">돼?</span>
+      </h1>
+      <p id="01-cover-outcome">편집 툴 없이 <span id="01-cover-mark"><span id="01-cover-mark-word">영상</span><svg id="01-cover-stroke" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><defs><filter id="f01-cover-crayon" x="-30%" y="-120%" width="160%" height="340%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n" /><feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" /></filter></defs><path id="01-cover-stroke-path" filter="url(#f01-cover-crayon)" d="M1 14 C 22 7, 42 20, 62 12 S 86 18, 99 11" /></svg></span> 만들기</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var CONTENT = [
+        { id: "01-cover-w0", text: "이것도" },
+        { id: "01-cover-w1", text: "AI로" },
+        { id: "01-cover-w2", text: "돼?" },
+      ];
+      var BASE_DURATION = 0.6;
+      var SEC_PER_CHAR = 0.05;
+      var SCENE_START = 1.2;
+      var SCENE_SPAN = 1.4;
+      var REVEAL = 0.45;
+      var raw = CONTENT.map(function (entry) {
+        return BASE_DURATION + entry.text.length * SEC_PER_CHAR;
+      });
+      var rawSum = raw.reduce(function (sum, dur) {
+        return sum + dur;
+      }, 0);
+      var scale = (SCENE_SPAN - REVEAL) / rawSum;
+      var cursor = SCENE_START;
+      var TIMELINE = CONTENT.map(function (entry, i) {
+        var start = cursor;
+        var slot = raw[i] * scale;
+        cursor += slot;
+        return { id: entry.id, start: start, end: start + slot };
+      });
+
+      var stroke = document.getElementById("01-cover-stroke-path");
+      var strokeLength = stroke.getTotalLength();
+      stroke.style.strokeDasharray = String(strokeLength);
+      stroke.style.strokeDashoffset = String(strokeLength);
+
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        document.getElementById("01-cover-pill"),
+        { scale: 0, opacity: 0, y: 10 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        0,
+      );
+
+      TIMELINE.forEach(function (entry) {
+        tl.fromTo(
+          document.getElementById(entry.id),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: REVEAL, ease: "power3.out", immediateRender: true },
+          entry.start,
+        );
+      });
+
+      tl.fromTo(
+        document.getElementById("01-cover-outcome"),
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.48, ease: "power1.out", immediateRender: true },
+        2.6,
+      );
+
+      tl.fromTo(
+        stroke,
+        { strokeDashoffset: strokeLength },
+        { strokeDashoffset: 0, duration: 0.55, ease: "power2.out", immediateRender: true },
+        3.2,
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["01-cover"] = tl;
+    })();
+  </script>
+</template>

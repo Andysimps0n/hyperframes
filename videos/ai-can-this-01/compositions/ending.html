@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("capture/assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "Gaegu"; src: url("capture/assets/fonts/gaegu-700.ttf") format("truetype"); font-weight: 700; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("capture/assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fcf6ec;
+          color: #3d3553;
+          perspective: 1600px;
+        }
+        .paper {
+          position: absolute;
+          inset: 0;
+          background-color: #fcf6ec;
+          background-image: radial-gradient(#e4d7c4 1.6px, transparent 1.7px);
+          background-size: 28px 28px;
+        }
+        .page {
+          position: absolute;
+          inset: 0;
+          background: #f3e6d0;
+          transform-origin: left center;
+          z-index: 5;
+        }
+        .handle {
+          position: absolute;
+          left: 72px;
+          bottom: 286px;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 32px;
+          font-weight: 600;
+        }
+        .series {
+          position: absolute;
+          right: 64px;
+          top: 278px;
+          font-family: "Gaegu", cursive;
+          font-size: 40px;
+          background: #f9b4c4;
+          border-radius: 999px;
+          padding: 4px 22px 8px;
+        }
+        h1 {
+          position: absolute;
+          left: 80px;
+          top: 400px;
+          margin: 0;
+          font-family: "Jua", sans-serif;
+          font-size: 72px;
+          font-weight: 400;
+        }
+        .card {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 540px;
+          background: #a9d3f5;
+          border-radius: 32px;
+          padding: 48px 40px;
+          font-family: "Jua", sans-serif;
+          font-size: 48px;
+          line-height: 1.35;
+        }
+        .actions {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 980px;
+          display: flex;
+          flex-direction: column;
+          gap: 22px;
+        }
+        .pill {
+          background: #fffdf8;
+          border: 6px solid #3d3553;
+          border-radius: 999px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          font-family: "IBM Plex Sans KR", sans-serif;
+          font-size: 40px;
+          font-weight: 600;
+          padding: 18px 20px;
+        }
+        .pill svg { width: 42px; height: 42px; flex: none; }
+        .bye {
+          position: absolute;
+          right: 80px;
+          bottom: 390px;
+          width: 420px;
+          font-family: "Gaegu", cursive;
+          font-size: 52px;
+          transform: rotate(-6deg);
+        }
+      </style>
+      <div id="root" data-composition-id="ending" data-width="1080" data-height="1920">
+        <div id="ending-paper" class="paper clip" data-start="0" data-duration="5" data-track-index="0"></div>
+        <div class="handle">@crayon.sure</div>
+        <div class="series">AI, 이것도 돼?</div>
+        <h1 id="ending-title">오늘의 정리</h1>
+        <div class="card" id="ending-card">댓글에 "프롬프트" 남기면<br />제가 쓴 프롬프트 보내드려요</div>
+        <div class="actions">
+          <div class="pill" id="ending-save"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 8 H34 V40 L24 32 L14 40 Z" fill="none" stroke="#3d3553" stroke-width="3.5" stroke-linejoin="round"/></svg>저장하고 써먹기</div>
+          <div class="pill" id="ending-follow"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="24" rx="16" ry="10" fill="none" stroke="#3d3553" stroke-width="3.5"/><circle cx="24" cy="24" r="4.5" fill="#3d3553"/></svg>팔로우하고 다음 편 보기</div>
+        </div>
+        <div class="bye" id="ending-bye">다음 편에서 만나요!</div>
+        <div class="page" id="ending-page"></div>
+      </div>
+      <script>
+        document.fonts.ready.then(() => {
+          const speed = 1.4;
+          const t = (seconds) => seconds / speed;
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#ending-page", { rotateY: 0 }, { rotateY: -105, duration: t(0.28), ease: "power2.in" }, 0);
+          tl.from("#ending-title", { opacity: 0, y: 18, duration: t(0.35) }, t(0.35));
+          tl.from("#ending-card", { opacity: 0, y: 24, duration: t(0.4) }, t(0.6));
+          tl.from("#ending-save", { opacity: 0, y: 16, duration: t(0.3) }, t(1.15));
+          tl.from("#ending-follow", { opacity: 0, y: 16, duration: t(0.3) }, t(1.4));
+          tl.from("#ending-bye", { opacity: 0, rotate: -10, duration: t(0.4) }, t(1.8));
+          window.__timelines["ending"] = tl;
+        });
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jua"; src: url("assets/fonts/jua-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("assets/fonts/plex-400.ttf") format("truetype"); font-weight: 400; }
+        @font-face { font-family: "IBM Plex Sans KR"; src: url("assets/fonts/plex-600.ttf") format("truetype"); font-weight: 600; }
+        @font-face { font-family: "IBM Plex Mono"; src: url("assets/fonts/plex-400.ttf") format("truetype"); font-weight: 500; }
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #111111;
+          color: #f0ece5;
+        }
+
+        #g1 {
+          position: absolute;
+          inset: 0;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          padding: 48px;
+        }
+
+        #g1 .g1_tile {
+          display: flex;
+          flex: 1 1 0;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          width: 100%;
+          min-height: 0;
+          padding: 24px 32px;
+          overflow: hidden;
+          background: #1a1a18;
+          transform-origin: center center;
+          will-change: transform, opacity;
+        }
+
+        #g1 .g1_label {
+          display: block;
+          width: 100%;
+          margin: 0;
+          font-family: "Jua", "IBM Plex Sans KR", sans-serif;
+          font-weight: 900;
+          font-size: 92px;
+          line-height: 1.05;
+          letter-spacing: -0.03em;
+          text-align: center;
+          color: #f0ece5;
+        }
+      </style>
+
+      <div data-hf-id="hf-wbun" id="root" data-composition-id="05-capabilities" data-width="1080" data-height="1920" data-duration="10.775">
+        <div data-hf-id="hf-h7r5" id="g1">
+          <div data-hf-id="hf-yq29" class="g1_tile" id="g1_tile_0">
+            <p data-hf-id="hf-ox4y" class="g1_label" id="g1_label_0">음악 검색</p>
+          </div>
+          <div data-hf-id="hf-xyeg" class="g1_tile" id="g1_tile_1">
+            <p data-hf-id="hf-t5xr" class="g1_label" id="g1_label_1">효과음</p>
+          </div>
+          <div data-hf-id="hf-6mab" class="g1_tile" id="g1_tile_2">
+            <p data-hf-id="hf-ttj5" class="g1_label" id="g1_label_2">비트에 맞춘 컷</p>
+          </div>
+          <div data-hf-id="hf-2o6a" class="g1_tile" id="g1_tile_3">
+            <p data-hf-id="hf-tjcy" class="g1_label" id="g1_label_3">키네틱 타이포</p>
+          </div>
+          <div data-hf-id="hf-jwgl" class="g1_tile" id="g1_tile_4">
+            <p data-hf-id="hf-qnvy" class="g1_label" id="g1_label_4">가사 없는 프로모</p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        const LOCKS = [0, 1.904, 3.785, 5.689, 7.569];
+        const POP = 0.12;
+        const ACTIVE_BG = "#E85D26";
+        const ACTIVE_FG = "#111111";
+        const IDLE_BG = "#1A1A18";
+        const IDLE_FG = "#F0ECE5";
+
+        gsap.set(["#g1_tile_1", "#g1_tile_2", "#g1_tile_3", "#g1_tile_4"], { autoAlpha: 0 });
+
+        LOCKS.forEach(function (lock, i) {
+          const tile = "#g1_tile_" + i;
+          const label = "#g1_label_" + i;
+          const start = i === 0 ? 0 : lock - POP;
+
+          if (i > 0) {
+            tl.set("#g1_tile_" + (i - 1), { backgroundColor: IDLE_BG }, start);
+            tl.set("#g1_label_" + (i - 1), { color: IDLE_FG }, start);
+          }
+
+          tl.set(tile, { backgroundColor: ACTIVE_BG }, start);
+          tl.set(label, { color: ACTIVE_FG }, start);
+
+          if (i === 0) {
+            tl.set(tile, { autoAlpha: 1 }, 0);
+            tl.fromTo(
+              tile,
+              { scale: 0.96 },
+              { scale: 1, duration: POP, ease: "power2.out", immediateRender: false },
+              0,
+            );
+          } else {
+            tl.fromTo(
+              tile,
+              { autoAlpha: 0, scale: 0.96 },
+              {
+                autoAlpha: 1,
+                scale: 1,
+                duration: POP,
+                ease: "power2.out",
+                immediateRender: false,
+              },
+              start,
+            );
+          }
+        });
+
+        tl.set("#g1", { autoAlpha: 0 }, 10.775);
+
+        window.__timelines["05-capabilities"] = tl;
+        tl.seek(0);
+      </script>
+    </template>
+  </body>
+</html>

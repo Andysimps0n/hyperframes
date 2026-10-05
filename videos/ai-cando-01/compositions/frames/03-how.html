@@ -1,0 +1,294 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      src: url("assets/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      color: #3D3553;
+      word-break: keep-all;
+    }
+
+    #root * {
+      box-sizing: border-box;
+    }
+
+    .c03-how-paper {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-color: #FFF9F0;
+      background-image: radial-gradient(circle, #EFE2CC 1.1px, transparent 1.2px);
+      background-size: 48px 48px;
+    }
+
+    .c03-how-series {
+      position: absolute;
+      top: 270px;
+      right: 72px;
+      z-index: 4;
+      margin: 0;
+      font-family: "Gaegu";
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7A7291;
+    }
+
+    .c03-how-handle {
+      position: absolute;
+      left: 72px;
+      bottom: 270px;
+      z-index: 4;
+      margin: 0;
+      font-family: "Gaegu";
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7A7291;
+    }
+
+    .c03-how-title {
+      position: absolute;
+      top: 368px;
+      left: 72px;
+      right: 72px;
+      z-index: 4;
+      margin: 0;
+      font-family: "Jua";
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+      color: #3D3553;
+      word-break: keep-all;
+    }
+
+    .c03-how-word,
+    .c03-how-hl {
+      position: relative;
+      display: inline;
+    }
+
+    .c03-how-hl {
+      isolation: isolate;
+    }
+
+    #c03-how-w1 {
+      white-space: pre;
+    }
+
+    #c03-how-bar {
+      display: none;
+    }
+
+    .c03-how-glyphs {
+      position: relative;
+      z-index: 1;
+      background-image: linear-gradient(#ffe08a, #ffe08a);
+      background-repeat: no-repeat;
+      background-position: left 78%;
+      background-size: 100% 0.42em;
+      padding: 0 0.08em;
+    }
+
+    .c03-how-list {
+      position: absolute;
+      top: 500px;
+      left: 72px;
+      z-index: 2;
+      width: 936px;
+      height: 1060px;
+    }
+
+    .c03-how-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 936px;
+      will-change: transform, opacity;
+    }
+
+    #c03-how-card-1 { height: 360px; }
+    #c03-how-card-2 { height: 310px; }
+    #c03-how-card-3 { height: 280px; }
+
+    .c03-how-face {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 32px 36px;
+      border-radius: 36px;
+      background: #FFFFFF;
+    }
+
+    .c03-how-stroke {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      border: 6px solid #3D3553;
+      border-radius: 36px;
+      pointer-events: none;
+      filter: url(#c03-how-crayon);
+    }
+
+    .c03-how-marker {
+      display: flex;
+      flex: 0 0 96px;
+      align-items: center;
+      justify-content: center;
+      width: 96px;
+      height: 96px;
+      border-radius: 999px;
+      background: #A9D3F5;
+      color: #3D3553;
+      font-family: "Jua";
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .c03-how-copy {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      font-family: "Pretendard";
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #3D3553;
+    }
+
+    .c03-how-mono {
+      font-family: "JetBrains Mono";
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-how" data-width="1080" data-height="1920" data-duration="8">
+    <svg width="0" height="0" aria-hidden="true">
+      <filter id="c03-how-crayon" x="-20%" y="-50%" width="140%" height="200%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="n"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"></feDisplacementMap>
+      </filter>
+    </svg>
+
+    <div class="clip c03-how-paper" data-start="0" data-duration="8" data-track-index="0"></div>
+
+    <p class="c03-how-series">이것도 AI로 돼?</p>
+    <p class="c03-how-handle">@crayon.sure</p>
+
+    <h1 class="c03-how-title"><span class="c03-how-word" id="c03-how-w1">어떻게 </span><span class="c03-how-hl" id="c03-how-w2"><span id="c03-how-bar" aria-hidden="true"></span><span class="c03-how-glyphs">작동</span></span><span class="c03-how-word" id="c03-how-w3">해요?</span></h1>
+
+    <div class="c03-how-list">
+      <div class="c03-how-card" id="c03-how-card-1" data-target-x="0" data-target-y="-350">
+        <div class="c03-how-face">
+          <div class="c03-how-marker">①</div>
+          <p class="c03-how-copy">HTML·CSS로 장면을 짜고, <span class="c03-how-mono">data-start</span> / <span class="c03-how-mono">data-duration</span>으로 시간을 적어요</p>
+        </div>
+        <div class="c03-how-stroke" aria-hidden="true"></div>
+      </div>
+
+      <div class="c03-how-card" id="c03-how-card-2" data-target-x="0" data-target-y="9">
+        <div class="c03-how-face">
+          <div class="c03-how-marker">②</div>
+          <p class="c03-how-copy">보이지 않는 크롬이 페이지를 한 프레임씩 찍어요</p>
+        </div>
+        <div class="c03-how-stroke" aria-hidden="true"></div>
+      </div>
+
+      <div class="c03-how-card" id="c03-how-card-3" data-target-x="0" data-target-y="374">
+        <div class="c03-how-face">
+          <div class="c03-how-marker">③</div>
+          <p class="c03-how-copy">이어 붙여 MP4가 돼요</p>
+        </div>
+        <div class="c03-how-stroke" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo("#c03-how-w1", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.06);
+    tl.fromTo("#c03-how-w2", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.36);
+    tl.fromTo("#c03-how-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.42, ease: "power2.out", transformOrigin: "left center" }, 0.44);
+    tl.fromTo("#c03-how-w3", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.46, ease: "power3.out" }, 0.68);
+
+    const arrivals = [
+      { id: "c03-how-card-1", at: 1.2, spread: 0, scale: 0.68 },
+      { id: "c03-how-card-2", at: 3.2, spread: 0, scale: 0.68 },
+      { id: "c03-how-card-3", at: 5.2, spread: 0.83, scale: 0.86 }
+    ];
+
+    arrivals.forEach(function (item) {
+      const el = document.getElementById(item.id);
+      const targetX = Number(el.dataset.targetX);
+      const targetY = Number(el.dataset.targetY);
+      tl.fromTo(
+        el,
+        {
+          xPercent: -50,
+          yPercent: -50,
+          x: targetX * item.spread,
+          y: targetY * item.spread,
+          scale: item.scale,
+          opacity: 0
+        },
+        {
+          xPercent: -50,
+          yPercent: -50,
+          x: targetX,
+          y: targetY,
+          scale: 1,
+          opacity: 1,
+          duration: 1.15,
+          ease: "power3.out",
+          immediateRender: true
+        },
+        item.at
+      );
+    });
+
+    tl.seek(0);
+    window.__timelines["03-how"] = tl;
+  </script>
+</template>
