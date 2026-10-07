@@ -1,0 +1,454 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Jua";
+      src: url("assets/fonts/Jua-Regular.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "Gaegu";
+      src: url("assets/fonts/Gaegu-Bold.ttf") format("truetype");
+      font-weight: 700;
+    }
+    @font-face {
+      font-family: "Pretendard";
+      src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2");
+      font-weight: 600;
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      word-break: keep-all;
+    }
+
+    [id="08-summary-paper"],
+    [id="08-summary-chrome"],
+    [id="08-summary-stage"] {
+      position: absolute;
+      inset: 0;
+    }
+
+    [id="08-summary-paper"] {
+      background-color: #fff9f0;
+      background-image: radial-gradient(circle, #efe2cc 2.2px, transparent 2.4px);
+      background-size: 48px 48px;
+    }
+
+    [id="08-summary-compass"] {
+      position: absolute;
+      top: 150px;
+      right: 72px;
+      width: 64px;
+      height: 64px;
+      overflow: visible;
+    }
+
+    [id="08-summary-handle"] {
+      position: absolute;
+      left: 64px;
+      bottom: 270px;
+      margin: 0;
+      font-family: "Gaegu", sans-serif;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.2;
+      color: #7a7291;
+      white-space: nowrap;
+    }
+
+    [id="08-summary-stack"] {
+      position: absolute;
+      left: 64px;
+      top: 320px;
+      width: 952px;
+      height: 1260px;
+    }
+
+    [id="08-summary-title"] {
+      position: absolute;
+      left: 36px;
+      top: 0;
+      margin: 0;
+      font-family: "Jua", sans-serif;
+      font-weight: 400;
+      font-size: 96px;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      color: #3d3654;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    [id="08-summary-mark"] {
+      position: relative;
+      display: inline-block;
+    }
+
+    [id="08-summary-sun"] {
+      position: absolute;
+      left: 2%;
+      top: 0.30em;
+      width: 96%;
+      height: 0.55em;
+      overflow: visible;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    [id="08-summary-sun-word"] {
+      position: relative;
+      z-index: 1;
+    }
+
+    [id="08-summary-sun-path"] {
+      fill: none;
+      stroke: #ffe08a;
+      stroke-width: 52;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    [id="08-summary-card"] {
+      position: absolute;
+      left: 0;
+      top: 152px;
+      width: 952px;
+      height: 1108px;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    [id="08-summary-fill"] {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      border-radius: 36px;
+    }
+
+    [id="08-summary-outline"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    [id="08-summary-outline-path"] {
+      fill: none;
+      stroke: #f9b4c4;
+      stroke-width: 12;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    [id="08-summary-cols"],
+    [id="08-summary-rows"] {
+      position: absolute;
+      left: 36px;
+      right: 36px;
+    }
+
+    [id="08-summary-cols"] {
+      top: 32px;
+      height: 64px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      column-gap: 22px;
+      align-items: center;
+    }
+
+    [id="08-summary-col-name"],
+    [id="08-summary-col-fn"] {
+      margin: 0;
+      font-family: "Gaegu", sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.2;
+      color: #d9637f;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    [id="08-summary-rows"] {
+      top: 108px;
+      bottom: 28px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    [class~="08-summary-row"] {
+      position: relative;
+      flex: 1 1 0;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      column-gap: 22px;
+      align-items: center;
+      min-height: 0;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    [class~="08-summary-rule"] {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -4px;
+      height: 12px;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    [class~="08-summary-rule-path"] {
+      fill: none;
+      stroke: #efe2cc;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 14 12;
+    }
+
+    [class~="08-summary-name"] {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    [class~="08-summary-en"],
+    [class~="08-summary-ko"],
+    [class~="08-summary-fn"] {
+      margin: 0;
+    }
+
+    [class~="08-summary-en"] {
+      font-family: "Jua", sans-serif;
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #3d3654;
+      white-space: nowrap;
+    }
+
+    [class~="08-summary-ko"] {
+      font-family: "Gaegu", sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.25;
+      color: #7a7291;
+    }
+
+    [class~="08-summary-fn"] {
+      min-width: 0;
+      font-family: "Pretendard", sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      line-height: 1.45;
+      color: #3d3654;
+      word-break: keep-all;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="08-summary"
+    data-width="1080"
+    data-height="1920"
+    data-duration="5.5"
+  >
+    <div
+      id="08-summary-paper"
+      class="clip"
+      data-start="0"
+      data-duration="5.5"
+      data-track-index="0"
+    ></div>
+
+    <div
+      id="08-summary-chrome"
+      class="clip"
+      data-start="0"
+      data-duration="5.5"
+      data-track-index="1"
+    >
+      <svg id="08-summary-compass" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <filter id="08-summary-wax" x="-20%" y="-80%" width="140%" height="260%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#08-summary-wax)">
+          <circle cx="32" cy="32" r="22" stroke="#3D3654" stroke-width="2.5" />
+          <path d="M32 13 V51" stroke="#3D3654" stroke-width="2.2" />
+          <path d="M13 32 H51" stroke="#3D3654" stroke-width="2.2" />
+          <path d="M32 16 V33" stroke="#D9637F" stroke-width="3.4" />
+          <circle cx="32" cy="32" r="2.6" stroke="#D9637F" stroke-width="2.2" />
+        </g>
+      </svg>
+      <p id="08-summary-handle">@crayon.sure</p>
+    </div>
+
+    <div
+      id="08-summary-stage"
+      class="clip"
+      data-start="0"
+      data-duration="5.5"
+      data-track-index="2"
+    >
+      <div id="08-summary-stack">
+        <h1 id="08-summary-title">한 눈에 <span id="08-summary-mark"><svg id="08-summary-sun" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true"><path id="08-summary-sun-path" filter="url(#08-summary-wax)" d="M8 52 C 70 28, 150 74, 230 46 S 330 70, 392 40" /></svg><span id="08-summary-sun-word">정리</span></span></h1>
+
+        <div id="08-summary-card">
+          <div id="08-summary-fill"></div>
+          <svg id="08-summary-outline" viewBox="0 0 952 1108" aria-hidden="true">
+            <rect id="08-summary-outline-path" filter="url(#08-summary-wax)" x="12" y="12" width="928" height="1084" rx="30" />
+          </svg>
+
+          <div id="08-summary-cols">
+            <p id="08-summary-col-name">이름</p>
+            <p id="08-summary-col-fn">기능</p>
+          </div>
+
+          <div id="08-summary-rows">
+            <div id="08-summary-row-0" class="08-summary-row">
+              <div class="08-summary-name">
+                <p class="08-summary-en">Table</p>
+                <p class="08-summary-ko">테이블</p>
+              </div>
+              <p class="08-summary-fn">줄과 칸으로 맞춰 비교해요.</p>
+            </div>
+            <div id="08-summary-row-1" class="08-summary-row">
+              <svg class="08-summary-rule" viewBox="0 0 880 16" preserveAspectRatio="none" aria-hidden="true">
+                <path class="08-summary-rule-path" filter="url(#08-summary-wax)" d="M0 8 C 40 4, 80 12, 120 8 S 200 12, 240 8 S 320 4, 360 8 S 440 12, 480 8 S 560 4, 600 8 S 680 12, 720 8 S 800 4, 840 8 L 880 8" />
+              </svg>
+              <div class="08-summary-name">
+                <p class="08-summary-en">List</p>
+                <p class="08-summary-ko">리스트</p>
+              </div>
+              <p class="08-summary-fn">같은 줄을 세로로 이어 보여 줘요.</p>
+            </div>
+            <div id="08-summary-row-2" class="08-summary-row">
+              <svg class="08-summary-rule" viewBox="0 0 880 16" preserveAspectRatio="none" aria-hidden="true">
+                <path class="08-summary-rule-path" filter="url(#08-summary-wax)" d="M0 8 C 40 4, 80 12, 120 8 S 200 12, 240 8 S 320 4, 360 8 S 440 12, 480 8 S 560 4, 600 8 S 680 12, 720 8 S 800 4, 840 8 L 880 8" />
+              </svg>
+              <div class="08-summary-name">
+                <p class="08-summary-en">Avatar</p>
+                <p class="08-summary-ko">아바타</p>
+              </div>
+              <p class="08-summary-fn">사람을 작은 동그란 사진으로 보여 줘요.</p>
+            </div>
+            <div id="08-summary-row-3" class="08-summary-row">
+              <svg class="08-summary-rule" viewBox="0 0 880 16" preserveAspectRatio="none" aria-hidden="true">
+                <path class="08-summary-rule-path" filter="url(#08-summary-wax)" d="M0 8 C 40 4, 80 12, 120 8 S 200 12, 240 8 S 320 4, 360 8 S 440 12, 480 8 S 560 4, 600 8 S 680 12, 720 8 S 800 4, 840 8 L 880 8" />
+              </svg>
+              <div class="08-summary-name">
+                <p class="08-summary-en">Divider</p>
+                <p class="08-summary-ko">디바이더</p>
+              </div>
+              <p class="08-summary-fn">내용 사이를 얇은 선으로 나눠요.</p>
+            </div>
+            <div id="08-summary-row-4" class="08-summary-row">
+              <svg class="08-summary-rule" viewBox="0 0 880 16" preserveAspectRatio="none" aria-hidden="true">
+                <path class="08-summary-rule-path" filter="url(#08-summary-wax)" d="M0 8 C 40 4, 80 12, 120 8 S 200 12, 240 8 S 320 4, 360 8 S 440 12, 480 8 S 560 4, 600 8 S 680 12, 720 8 S 800 4, 840 8 L 880 8" />
+              </svg>
+              <div class="08-summary-name">
+                <p class="08-summary-en">Tag</p>
+                <p class="08-summary-ko">태그</p>
+              </div>
+              <p class="08-summary-fn">항목에 작은 분류 라벨을 붙여요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      function measure(el, fallback) {
+        var len = 0;
+        try {
+          len = el.getTotalLength();
+        } catch (err) {
+          len = 0;
+        }
+        if (!len || len < 1) len = fallback;
+        el.style.strokeDasharray = String(len);
+        el.style.strokeDashoffset = String(len);
+        return len;
+      }
+
+      var sun = document.getElementById("08-summary-sun-path");
+      var outline = document.getElementById("08-summary-outline-path");
+      var sunLen = measure(sun, 520);
+      var outlineLen = measure(outline, 4024);
+
+      var tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        document.getElementById("08-summary-card"),
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.46, ease: "power3.out", force3D: false },
+        0.04
+      );
+
+      tl.fromTo(
+        outline,
+        { strokeDashoffset: outlineLen },
+        { strokeDashoffset: 0, duration: 0.62, ease: "power2.out" },
+        0.18
+      );
+
+      tl.fromTo(
+        document.getElementById("08-summary-title"),
+        { opacity: 0, y: 14, scale: 0.92 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.46, ease: "power3.out", force3D: false },
+        0.08
+      );
+
+      tl.fromTo(
+        sun,
+        { strokeDashoffset: sunLen },
+        { strokeDashoffset: 0, duration: 0.52, ease: "power2.out" },
+        0.2
+      );
+
+      tl.fromTo(
+        document.getElementById("08-summary-col-name"),
+        { opacity: 0, y: 12, scale: 0 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out", force3D: false },
+        0.52
+      );
+
+      tl.fromTo(
+        document.getElementById("08-summary-col-fn"),
+        { opacity: 0, y: 12, scale: 0 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out", force3D: false },
+        0.6
+      );
+
+      ["08-summary-row-0", "08-summary-row-1", "08-summary-row-2", "08-summary-row-3", "08-summary-row-4"].forEach(
+        function (id, i) {
+          tl.fromTo(
+            document.getElementById(id),
+            { opacity: 0, y: 20, scale: 0 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", force3D: false },
+            1.08 + i * 0.48
+          );
+        }
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["08-summary"] = tl;
+    })();
+  </script>
+</template>
