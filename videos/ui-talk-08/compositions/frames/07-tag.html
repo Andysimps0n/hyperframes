@@ -1,0 +1,474 @@
+<template>
+  <style>
+    @font-face { font-family: "Jua"; src: url("assets/fonts/Jua-Regular.ttf") format("truetype"); font-weight: 400; }
+    @font-face { font-family: "Gaegu"; src: url("assets/fonts/Gaegu-Bold.ttf") format("truetype"); font-weight: 700; }
+    @font-face { font-family: "Pretendard"; src: url("assets/fonts/Pretendard-Medium.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "Pretendard"; src: url("assets/fonts/Pretendard-SemiBold.woff2") format("woff2"); font-weight: 600; }
+    @font-face { font-family: "Pretendard"; src: url("assets/fonts/Pretendard-Bold.woff2") format("woff2"); font-weight: 700; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      color: #3D3654;
+      word-break: keep-all;
+    }
+
+    #root, #root * { box-sizing: border-box; }
+
+    #root > [id="07-tag-paper"] {
+      position: absolute;
+      inset: 0;
+      background-color: #FFF9F0;
+      background-image: radial-gradient(circle, #EFE2CC 2.2px, transparent 2.4px);
+      background-size: 48px 48px;
+    }
+
+    #root [id="07-tag-compass"] {
+      position: absolute;
+      top: 150px;
+      right: 72px;
+      width: 64px;
+      height: 64px;
+      overflow: visible;
+      z-index: 4;
+    }
+
+    #root [id="07-tag-handle"] {
+      position: absolute;
+      left: 64px;
+      bottom: 270px;
+      margin: 0;
+      z-index: 5;
+      font-family: "Gaegu", sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7A7291;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-card"] {
+      position: absolute;
+      left: 64px;
+      top: 336px;
+      width: 952px;
+      height: 272px;
+      border-radius: 36px;
+      background: #FFFFFF;
+      transform-origin: 50% 50%;
+      z-index: 2;
+    }
+
+    #root [class~="07-tag-stroke"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    #root [id="07-tag-bar-a"],
+    #root [id="07-tag-bar-b"] {
+      position: absolute;
+      left: 48px;
+      height: 22px;
+      border-radius: 999px;
+      background: #B9B1C9;
+      z-index: 2;
+    }
+
+    #root [id="07-tag-bar-a"] { top: 64px; width: 560px; }
+    #root [id="07-tag-bar-b"] { top: 112px; width: 380px; }
+
+    #root [id="07-tag-chips"] {
+      position: absolute;
+      left: 40px;
+      bottom: -34px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 3;
+    }
+
+    #root [class~="07-tag-chip"] {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-family: "Jua", sans-serif;
+      font-size: 40px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: #3D3654;
+      white-space: nowrap;
+      transform-origin: 50% 50%;
+    }
+
+    #root [class~="07-tag-chip-pink"] { background: #F9B4C4; }
+    #root [class~="07-tag-chip-sun"] { background: #FFE08A; }
+
+    #root [id="07-tag-x"] {
+      margin-left: 10px;
+      font-family: "Jua", sans-serif;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1;
+      color: #D9637F;
+    }
+
+    #root [id="07-tag-step"] {
+      position: absolute;
+      left: 64px;
+      top: 692px;
+      margin: 0;
+      font-family: "Gaegu", sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #7A7291;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-term"] {
+      position: absolute;
+      left: 64px;
+      top: 768px;
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+    }
+
+    #root [id="07-tag-word"] {
+      position: relative;
+      display: inline-block;
+      transform-origin: 50% 50%;
+    }
+
+    #root [id="07-tag-mark"] {
+      position: absolute;
+      left: -8px;
+      right: -8px;
+      bottom: 12px;
+      height: 34px;
+      border-radius: 10px;
+      background: #FFE08A;
+      z-index: 0;
+      transform-origin: 0% 50%;
+    }
+
+    #root [id="07-tag-wordtext"] {
+      position: relative;
+      z-index: 1;
+      font-family: "Jua", sans-serif;
+      font-size: 96px;
+      font-weight: 400;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      color: #3D3654;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-pron"] {
+      margin: 0 0 16px;
+      font-family: "Gaegu", sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #D9637F;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-meaning"],
+    #root [id="07-tag-when"] {
+      position: absolute;
+      left: 64px;
+      width: 952px;
+      margin: 0;
+      font-family: "Pretendard", sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #3D3654;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-meaning"] { top: 928px; }
+    #root [id="07-tag-when"] { top: 1004px; }
+
+    #root [id="07-tag-swap"] {
+      position: absolute;
+      left: 64px;
+      top: 1100px;
+      width: 952px;
+      height: 220px;
+      z-index: 2;
+    }
+
+    #root [class~="07-tag-swap-card"] {
+      position: absolute;
+      inset: 0;
+      border-radius: 28px;
+      transform-origin: 50% 50%;
+    }
+
+    #root [id="07-tag-out"] { background: #FBEFDD; z-index: 1; }
+    #root [id="07-tag-in"] { background: #FFFFFF; z-index: 2; }
+
+    #root [class~="07-tag-swap-copy"] {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      padding: 28px 40px;
+      gap: 12px;
+    }
+
+    #root [class~="07-tag-swap-label"] {
+      font-family: "Gaegu", sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-out-label"] { color: #D9637F; }
+    #root [id="07-tag-in-label"] { color: #3D3654; }
+
+    #root [class~="07-tag-swap-line"] {
+      font-family: "Pretendard", sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #3D3654;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-tip"] {
+      position: absolute;
+      left: 64px;
+      top: 1384px;
+      width: 952px;
+      border-radius: 28px;
+      background: #FBEFDD;
+      z-index: 2;
+    }
+
+    #root [id="07-tag-tip-copy"] {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 26px 36px 28px;
+    }
+
+    #root [id="07-tag-tip-label"] {
+      font-family: "Gaegu", sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #D9637F;
+      white-space: nowrap;
+    }
+
+    #root [id="07-tag-tip-body"] {
+      font-family: "Pretendard", sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #3D3654;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="07-tag" data-width="1080" data-height="1920" data-duration="6.5">
+    <svg width="0" height="0" aria-hidden="true">
+      <defs>
+        <filter id="07-tag-wax" x="-20%" y="-80%" width="140%" height="260%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <div id="07-tag-paper" class="clip" data-start="0" data-duration="6.5" data-track-index="0"></div>
+
+    <svg id="07-tag-compass" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="24" fill="none" stroke="#3D3654" stroke-width="4" filter="url(#07-tag-wax)"/>
+      <path d="M32 12 V52 M12 32 H52" fill="none" stroke="#B9B1C9" stroke-width="3" stroke-linecap="round" filter="url(#07-tag-wax)"/>
+      <path d="M32 32 L46 18" fill="none" stroke="#D9637F" stroke-width="4" stroke-linecap="round" filter="url(#07-tag-wax)"/>
+      <circle cx="32" cy="32" r="3" fill="#3D3654"/>
+    </svg>
+
+    <div id="07-tag-handle">@crayon.sure</div>
+
+    <div id="07-tag-card">
+      <svg class="07-tag-stroke" viewBox="0 0 952 272" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="5" y="5" width="942" height="262" rx="32" fill="none" stroke="#3D3654" stroke-width="6" filter="url(#07-tag-wax)"/>
+      </svg>
+      <div id="07-tag-bar-a"></div>
+      <div id="07-tag-bar-b"></div>
+      <div id="07-tag-chips">
+        <div id="07-tag-cafe" class="07-tag-chip 07-tag-chip-pink">#카페</div>
+        <div id="07-tag-fresh" class="07-tag-chip 07-tag-chip-pink">#신상</div>
+        <div id="07-tag-sort" class="07-tag-chip 07-tag-chip-sun">최신순<span id="07-tag-x">x</span></div>
+      </div>
+    </div>
+
+    <div id="07-tag-step">UI 용어 ⑤</div>
+
+    <div id="07-tag-term">
+      <div id="07-tag-word">
+        <span id="07-tag-mark"></span>
+        <span id="07-tag-wordtext">Tag</span>
+      </div>
+      <div id="07-tag-pron">[태그]</div>
+    </div>
+
+    <div id="07-tag-meaning">항목에 붙이는 작은 분류 라벨이에요.</div>
+    <div id="07-tag-when">#카페, #신상처럼 종류를 붙일 때 써요.</div>
+
+    <div id="07-tag-swap">
+      <div id="07-tag-out" class="07-tag-swap-card">
+        <svg class="07-tag-stroke" viewBox="0 0 952 220" preserveAspectRatio="none" aria-hidden="true">
+          <rect x="5" y="5" width="942" height="210" rx="24" fill="none" stroke="#3D3654" stroke-width="6" filter="url(#07-tag-wax)"/>
+        </svg>
+        <div class="07-tag-swap-copy">
+          <div id="07-tag-out-label" class="07-tag-swap-label">잘못된 설명</div>
+          <div class="07-tag-swap-line">글 아래에 작은 라벨로 종류 붙여줘</div>
+        </div>
+      </div>
+      <div id="07-tag-in" class="07-tag-swap-card">
+        <svg class="07-tag-stroke" viewBox="0 0 952 220" preserveAspectRatio="none" aria-hidden="true">
+          <rect x="5" y="5" width="942" height="210" rx="24" fill="none" stroke="#3D3654" stroke-width="6" filter="url(#07-tag-wax)"/>
+        </svg>
+        <div class="07-tag-swap-copy">
+          <div id="07-tag-in-label" class="07-tag-swap-label">용어를 알고 난 후</div>
+          <div class="07-tag-swap-line">게시글 아래에 Tag를 붙여줘</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="07-tag-tip">
+      <svg class="07-tag-stroke" viewBox="0 0 952 180" preserveAspectRatio="none" aria-hidden="true">
+        <rect x="5" y="5" width="942" height="170" rx="24" fill="none" stroke="#D9637F" stroke-width="6" filter="url(#07-tag-wax)"/>
+      </svg>
+      <div id="07-tag-tip-copy">
+        <div id="07-tag-tip-label">팁</div>
+        <div id="07-tag-tip-body">Tag는 분류 라벨, 6탄 Chip은 고른 조건을 x로 지워요.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const el = (id) => document.getElementById(id);
+
+    tl.fromTo(
+      el("07-tag-card"),
+      { scale: 0.92, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.34, ease: "power3.out", immediateRender: true },
+      0.04
+    );
+
+    tl.fromTo(
+      el("07-tag-cafe"),
+      { scale: 0, opacity: 0, y: 18 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.48, ease: "power3.out", immediateRender: true },
+      0.26
+    );
+
+    tl.fromTo(
+      el("07-tag-fresh"),
+      { scale: 0, opacity: 0, y: 18 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.48, ease: "power3.out", immediateRender: true },
+      0.34
+    );
+
+    tl.fromTo(
+      el("07-tag-sort"),
+      { scale: 0, opacity: 0, y: 18 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: true },
+      0.96
+    );
+
+    tl.fromTo(
+      el("07-tag-step"),
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: true },
+      1.88
+    );
+
+    tl.fromTo(
+      el("07-tag-word"),
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.42, ease: "power3.out", immediateRender: true },
+      2.16
+    );
+
+    tl.fromTo(
+      el("07-tag-mark"),
+      { scaleX: 0 },
+      { scaleX: 1, duration: 0.46, ease: "power3.out", immediateRender: true },
+      2.16
+    );
+
+    tl.fromTo(
+      el("07-tag-pron"),
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.38, ease: "power3.out", immediateRender: true },
+      2.58
+    );
+
+    tl.fromTo(
+      el("07-tag-meaning"),
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: true },
+      3.06
+    );
+
+    tl.fromTo(
+      el("07-tag-when"),
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: true },
+      3.58
+    );
+
+    tl.fromTo(
+      el("07-tag-out"),
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.32, ease: "power3.out", immediateRender: true },
+      4.2
+    );
+
+    tl.fromTo(
+      el("07-tag-out"),
+      { scale: 1, opacity: 1 },
+      { scale: 0.72, opacity: 0, duration: 0.34, ease: "power2.in", immediateRender: false },
+      4.78
+    );
+
+    tl.fromTo(
+      el("07-tag-in"),
+      { scale: 0.72, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.52, ease: "back.out(1.4)", immediateRender: true },
+      4.97
+    );
+
+    tl.fromTo(
+      el("07-tag-tip"),
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power3.out", immediateRender: true },
+      5.58
+    );
+
+    window.__timelines["07-tag"] = tl;
+  </script>
+</template>
